@@ -1,2 +1,9 @@
+Timer
 CollisionShape2D
+Area2D
+Marker2D
+CanvasLayer
+Camera2D
 CharacterBody2D
+StaticBody2D
+ColorRect
