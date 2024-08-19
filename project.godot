@@ -75,12 +75,18 @@ Settings/Show_Tooltips=true
 [application]
 
 config/name="Your First 2D Game With Godot 4: START (GDQuest)"
+run/main_scene="res://src/MainScreens/main_screen.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.png"
 
+[autoload]
+
+PlayerData="*res://src/Globals/playerData.tscn"
+
 [display]
 
-window/size/viewport_width=800
+window/size/viewport_width=1440
+window/size/viewport_height=720
 window/stretch/mode="viewport"
 
 [dotnet]

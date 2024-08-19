@@ -1,0 +1,26 @@
+extends CharacterBody2D
+
+var healt = 3
+
+@onready var player =  preload("res://src/Characters/Players/Player1/player.tscn")
+
+@export var score: = 100
+
+func _ready():
+	%Slime.play_walk()
+
+func _physics_process(delta):
+		var direction = global_position.direction_to(player.global_position)
+		velocity = direction * 300.0
+		move_and_slide()
+
+func take_damage():
+	healt -= 1
+	$Slime.play_hurt()
+	if healt == 0:
+		PlayerData.score += score
+		queue_free()
+		const SMOKE_SCENE = preload("res://src/Characters/smoke_explosion/smoke_explosion.tscn")
+		var  smoke = SMOKE_SCENE.instantiate()
+		get_parent().add_child(smoke)
+		smoke.global_position = global_position
