@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://uwxvgrgvnpel"]
+
+[ext_resource type="PackedScene" uid="uid://bcbjd1kxcd8sf" path="res://src/UserInterface/InventoryUi/slot.tscn" id="1_bl277"]
+[ext_resource type="Script" path="res://src/UserInterface/InventoryUi/inventoryUI.gd" id="1_sdkng"]
+[ext_resource type="Script" path="res://src/UserInterface/InventoryUi/Inventory.gd" id="2_kqqw8"]
+
+[node name="InventoryUi" type="Node2D"]
+script = ExtResource("1_sdkng")
+
+[node name="Screen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 2.0
+offset_right = 1438.0
+offset_bottom = 718.0
+
+[node name="Inventory" type="GridContainer" parent="Screen"]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 55.0
+offset_right = 234.0
+offset_bottom = 183.0
+columns = 2
+script = ExtResource("2_kqqw8")
+
+[node name="Slot" parent="Screen/Inventory" instance=ExtResource("1_bl277")]
+layout_mode = 2
+
+[node name="Slot2" parent="Screen/Inventory" instance=ExtResource("1_bl277")]
+layout_mode = 2
+
+[node name="Slot3" parent="Screen/Inventory" instance=ExtResource("1_bl277")]
+layout_mode = 2
+
+[node name="Slot4" parent="Screen/Inventory" instance=ExtResource("1_bl277")]
+layout_mode = 2
+
+[node name="Slot5" parent="Screen/Inventory" instance=ExtResource("1_bl277")]
+layout_mode = 2
+
+[node name="Slot6" parent="Screen/Inventory" instance=ExtResource("1_bl277")]
+layout_mode = 2

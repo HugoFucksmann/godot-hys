@@ -1,5 +1,14 @@
+Slot
+GridContainer
+Control
+Node2D
+TextureRect
+PanelContainer
 Button
+HBoxContainer
+ItemList
 VBoxContainer
+CanvasLayer
 Label
 ColorRect
 CharacterBody2D

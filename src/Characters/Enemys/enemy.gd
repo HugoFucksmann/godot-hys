@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name GlobalEnemy
+
 @export var health: int
 @export var damage: int
 @export var score: int

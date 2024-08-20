@@ -1,4 +1,4 @@
-extends "res://src/Characters/Enemys/enemy.gd"
+extends GlobalEnemy
 
 @export var smoke_scene: PackedScene = preload("res://src/Characters/smoke_explosion/smoke_explosion.tscn")
 
