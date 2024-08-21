@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu0en2hmredon"]
+
+[ext_resource type="Theme" uid="uid://d4bq1kwvmicb1" path="res://assets/theme/new_theme.tres" id="1_8lybl"]
+[ext_resource type="Script" path="res://src/UserInterface/Buttons/btnGlobal.gd" id="2_esnh5"]
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(180, 120)
+offset_right = 627.0
+offset_bottom = 1033.0
+theme = ExtResource("1_8lybl")
+theme_override_font_sizes/font_size = 72
+script = ExtResource("2_esnh5")

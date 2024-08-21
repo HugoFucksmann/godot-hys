@@ -1,6 +1,3 @@
-[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://5luelchjre1c"]
-
-[ext_resource type="FontFile" uid="uid://ctfymhqfpjl38" path="res://assets/fonts/NewAmsterdam-Regular.ttf" id="1_w78wf"]
+[gd_resource type="FontVariation" format=3 uid="uid://5luelchjre1c"]
 
 [resource]
-base_font = ExtResource("1_w78wf")

@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://7587jeqx2gsd"]
+
+[ext_resource type="Theme" uid="uid://d4bq1kwvmicb1" path="res://assets/theme/new_theme.tres" id="1_vv8nr"]
+[ext_resource type="FontFile" uid="uid://ctfymhqfpjl38" path="res://assets/fonts/NewAmsterdam-Regular.ttf" id="2_7pkqf"]
+[ext_resource type="PackedScene" uid="uid://p0tkutvtnn8" path="res://src/UserInterface/exit_button.tscn" id="3_a73ds"]
+
+[sub_resource type="Theme" id="Theme_vhkpt"]
+default_font = ExtResource("2_7pkqf")
+default_font_size = 52
+
+[node name="PauseScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -99.0
+offset_top = 20.0
+offset_right = -30.0
+offset_bottom = 43.0
+grow_horizontal = 0
+theme = ExtResource("1_vv8nr")
+theme_override_font_sizes/font_size = 18
+text = "Score $s."
+
+[node name="PauseOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.227451)
+
+[node name="Label" type="Label" parent="PauseOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.5
+offset_top = -121.0
+offset_right = 49.5
+offset_bottom = -67.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_vhkpt")
+theme_override_font_sizes/font_size = 44
+text = "Paused"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.5
+offset_top = -48.0
+offset_right = 101.5
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ExitButton" parent="PauseOverlay/VBoxContainer" instance=ExtResource("3_a73ds")]
+layout_mode = 2

@@ -1,0 +1,15 @@
+res://src/MainScreens/main_screen.tscn
+res://src/Globals/playerData.gd
+res://src/Globals/playerData.tscn
+res://src/MainScreens/survivor_game.tscn
+res://src/MainScreens/pause_screen.tscn
+res://src/UserInterface/btn_changeScene.tscn
+res://src/Characters/Players/Player1/player.tscn
+res://src/Weapons/gun/bullet.tscn
+res://src/Weapons/gun/area_gun.tscn
+res://src/Weapons/shotgun/shotGun.tscn
+res://src/UserInterface/button_back.gd
+res://src/UserInterface/Buttons/btnGlobal.tscn
+res://src/UserInterface/Buttons/btnGlobal.gd
+res://src/UserInterface/play_button.tscn
+res://src/MainScreens/main_screen.gd

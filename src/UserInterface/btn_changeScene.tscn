@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://y4h60utn48tr"]
+
+[ext_resource type="Theme" uid="uid://d4bq1kwvmicb1" path="res://assets/theme/new_theme.tres" id="1_cdp7c"]
+[ext_resource type="Script" path="res://src/UserInterface/btn_changeScene.gd" id="1_nto87"]
+
+[node name="Button" type="Button"]
+offset_right = 160.0
+offset_bottom = 43.0
+theme = ExtResource("1_cdp7c")
+theme_override_font_sizes/font_size = 22
+text = "Reanudar"
+script = ExtResource("1_nto87")

@@ -20,16 +20,16 @@ theme = ExtResource("1_vtrg0")
 script = ExtResource("2_5gvmj")
 
 [node name="BackgroundMain" type="Sprite2D" parent="."]
-position = Vector2(720, 368)
-scale = Vector2(1.40625, 1.01136)
+position = Vector2(540, 962)
+scale = Vector2(1.05469, 2.72159)
 texture = ExtResource("1_j1mmi")
 
 [node name="Menu" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 435.0
-offset_top = 440.0
-offset_right = 1025.0
-offset_bottom = 684.0
+offset_left = 232.0
+offset_top = 1292.0
+offset_right = 822.0
+offset_bottom = 1688.0
 
 [node name="PlayBtn" parent="Menu" instance=ExtResource("4_uif6n")]
 layout_mode = 2
@@ -40,5 +40,3 @@ script = ExtResource("5_nkmwd")
 layout_mode = 2
 text = "EXIT"
 script = ExtResource("6_d7j0y")
-
-[connection signal="button_up" from="Menu/PlayBtn" to="." method="_button_up"]
