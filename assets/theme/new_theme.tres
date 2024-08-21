@@ -1,7 +1,7 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://d4bq1kwvmicb1"]
 
-[ext_resource type="FontVariation" uid="uid://5luelchjre1c" path="res://assets/fonts/new_font_variation.tres" id="1_tgf5k"]
+[ext_resource type="FontFile" uid="uid://ctfymhqfpjl38" path="res://assets/fonts/NewAmsterdam-Regular.ttf" id="1_2xf5i"]
 
 [resource]
-default_font = ExtResource("1_tgf5k")
+default_font = ExtResource("1_2xf5i")
 default_font_size = 52

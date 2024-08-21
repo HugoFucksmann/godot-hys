@@ -1,26 +1,15 @@
-extends CharacterBody2D
+extends "res://src/Characters/Enemys/enemy.gd"
 
-var healt = 3
+@export var smoke_scene: PackedScene = preload("res://src/Characters/smoke_explosion/smoke_explosion.tscn")
 
-@onready var player =  preload("res://src/Characters/Players/Player1/player.tscn")
+func initialize():
+	$Slime.play_walk()  # Reproduce la animación de caminar al inicializar
 
-@export var score: = 100
+func play_hurt_animation():
+	$Slime.play_hurt()  # Reproduce la animación de daño cuando el enemigo es golpeado
 
-func _ready():
-	%Slime.play_walk()
-
-func _physics_process(delta):
-		var direction = global_position.direction_to(player.global_position)
-		velocity = direction * 300.0
-		move_and_slide()
-
-func take_damage():
-	healt -= 1
-	$Slime.play_hurt()
-	if healt == 0:
-		PlayerData.score += score
-		queue_free()
-		const SMOKE_SCENE = preload("res://src/Characters/smoke_explosion/smoke_explosion.tscn")
-		var  smoke = SMOKE_SCENE.instantiate()
-		get_parent().add_child(smoke)
-		smoke.global_position = global_position
+func play_death_effects():
+	# Reproduce los efectos de muerte específicos, como la explosión de humo
+	var smoke = smoke_scene.instantiate()
+	get_parent().add_child(smoke)
+	smoke.global_position = global_position

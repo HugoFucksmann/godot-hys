@@ -1,5 +1,5 @@
 extends Area2D
-
+@export var damage: int = 1
 var travelled_distance = 0
 
 func _physics_process(delta):
@@ -14,7 +14,7 @@ func _physics_process(delta):
 
 
 func _on_body_entered(body):
-	queue_free()
-	if body.has_method("take_damage"):
-		body.take_damage()
+	queue_free()  # La bala se destruye al colisionar
+	if body and body.has_method("take_damage"):
+		body.take_damage(damage)
 	
