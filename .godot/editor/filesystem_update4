@@ -5,3 +5,6 @@ res://src/UserInterface/InventoryUi/slot.tscn
 res://src/UserInterface/InventoryUi/inventoryUI.gd
 res://src/UserInterface/InventoryUi/InventoryPj.gd
 res://src/UserInterface/InventoryUi/InventoryItems.gd
+res://src/Weapons/gun/area_gun.tscn
+res://src/Weapons/gun/area_gun.gd
+res://src/Weapons/weaponManager.gd
