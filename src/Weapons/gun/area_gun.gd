@@ -5,6 +5,3 @@ func _init():
 	damage = 1
 	bullet_scene = preload("res://src/Weapons/gun/bullet.tscn")
 	initialize_item(ItemType.WEAPON, "Pistol", 50.0, 0.0)
-
-func instantiate():
-	return duplicate()

@@ -8,5 +8,3 @@ var item_type: ItemType
 var item_name: String
 var item_power: float
 var item_defense: float
-
-

@@ -6,8 +6,6 @@ extends Node2D
 @onready var inventoryPj: InventoryPj = $CharacterView/InventoryPj 
 @onready var inventory_items: InventoryItems = $ItemListView/InventoryItems
 
-
-
 func _ready():
 	if inventoryPj == null or inventory_items == null:
 		print("Inventory nodes are null")
@@ -22,23 +20,48 @@ func add_player_item(item):
 	inventoryPj.add_item(item)
 	inventory_items.all_items.append(item)
 	inventory_items.update_item_grid()
-	
+
 func load_gun():
-	var area_gun = preload("res://src/Weapons/gun/area_gun.tscn").instantiate()
+	var area_gun_scene  = preload("res://src/Weapons/gun/area_gun.tscn")
+	var area_gun = area_gun_scene.instantiate()
 	add_player_item(area_gun)
 
-func _on_item_pressed(item_and_buttons):
-	# Verificar si se recibió un panel con botones
-	if item_and_buttons is Control:
-		# Conectar las señales de los botones
-		item_and_buttons.get_child(0).connect("pressed", inventory_items._on_equip_pressed.bind(item_and_buttons.get_child(0).get_parent()))
-		item_and_buttons.get_child(1).connect("pressed", inventory_items._on_delete_pressed.bind(item_and_buttons.get_child(1).get_parent()))
-		# Agregar el panel a la interfaz
-		add_child(item_and_buttons)
+func _on_item_pressed(item):
+	if item in inventoryPj.equipped_items.values():
+		show_unequip_dialog(item)
 	else:
-		# Si no se recibió un panel, asumir que se recibió un ítem
-		inventoryPj.equip_item("weapon", item_and_buttons)
-		inventoryPj.update_inventory_ui()
+		show_equip_dialog(item)
 
+func show_equip_dialog(item):
+	var dialog = AcceptDialog.new()
+	dialog.dialog_text = "¿Quieres equipar este ítem?"
+	dialog.connect("confirmed", Callable(self, "_on_equip_confirmed").bind(item))
+	add_child(dialog)
+	dialog.popup_centered()
+
+func show_unequip_dialog(item):
+	var dialog = AcceptDialog.new()
+	dialog.dialog_text = "¿Quieres desequipar este ítem?"
+	dialog.connect("confirmed", Callable(self, "_on_unequip_confirmed").bind(item))
+	add_child(dialog)
+	dialog.popup_centered()
+
+func _on_equip_confirmed(item):
+	for slot_type in inventoryPj.equipped_items.keys():
+		if inventoryPj.equipped_items[slot_type] == null:
+			inventoryPj.equip_item(slot_type, item)
+			inventory_items.all_items.erase(item)
+			inventory_items.update_item_grid()
+			break
+	
+func _on_unequip_confirmed(item):
+	for slot_type in inventoryPj.equipped_items.keys():
+		if inventoryPj.equipped_items[slot_type] == item:
+			var unequipped_item = inventoryPj.unequip_item(slot_type)
+			if unequipped_item:
+				inventory_items.all_items.append(unequipped_item)
+				inventory_items.update_item_grid()
+			break
+	
 func update_item_slots():
 	inventory_items.update_item_grid()

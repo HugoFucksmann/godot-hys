@@ -1,10 +1,13 @@
-res://src/UserInterface/InventoryUi/inventoryUI.tscn
 res://src/MainScreens/main_screen.tscn
+res://src/Globals/playerData.gd
+res://src/Weapons/gun/area_gun.gd
+res://src/Weapons/gloablArmor.gd
+res://src/UserInterface/InventoryUi/slot.gd
 res://src/MainScreens/survivor_game.tscn
 res://src/UserInterface/InventoryUi/slot.tscn
+res://src/UserInterface/InventoryUi/inventoryUI.tscn
+res://src/Weapons/gun/area_gun.tscn
 res://src/UserInterface/InventoryUi/inventoryUI.gd
 res://src/UserInterface/InventoryUi/InventoryPj.gd
+res://src/Weapons/globalWeapon.gd
 res://src/UserInterface/InventoryUi/InventoryItems.gd
-res://src/Weapons/gun/area_gun.tscn
-res://src/Weapons/gun/area_gun.gd
-res://src/Weapons/weaponManager.gd

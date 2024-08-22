@@ -2,6 +2,10 @@ extends Area2D
 
 class_name GlobalWeapon
 
+
+signal equipped
+signal unequipped
+
 enum ItemType {WEAPON, ARMOR, BOOTS, HELMET, GLOVES, ACCESSORY}
 
 var item_type: ItemType
@@ -17,7 +21,7 @@ var item_defense: float
 @onready var shooting_point = $WeaponPivot/Pistol/ShootingPoint
 
 func _ready():
-	print("shooting_point:", shooting_point)
+	
 	timer.wait_time = 1.0 / fire_rate
 	timer.start()
 	
@@ -38,6 +42,11 @@ func aim_at_nearest_enemy():
 		var target_enemy = enemies_in_range.front()
 		look_at(target_enemy.global_position)
 
+func is_enemy_in_range() -> bool:
+	var enemies_in_range = get_overlapping_bodies()
+	return enemies_in_range.size() > 0  # Retorna verdadero si hay enemigos
+
+
 func shoot():
 	if bullet_scene:
 		var new_bullet = bullet_scene.instantiate()
@@ -47,4 +56,5 @@ func shoot():
 		get_tree().current_scene.add_child(new_bullet)
 
 func _on_timer_timeout():
-	shoot()
+	if is_enemy_in_range():  # Verifica si hay enemigos en rango
+		shoot()

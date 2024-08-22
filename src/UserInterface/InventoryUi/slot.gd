@@ -10,4 +10,3 @@ func set_item(new_item):
 
 func get_item():
 	return item
-

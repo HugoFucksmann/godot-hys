@@ -24,7 +24,7 @@ offset_bottom = 187.0
 columns = 2
 script = ExtResource("2_kqqw8")
 
-[node name="weapon" parent="CharacterView/InventoryPj" instance=ExtResource("1_bl277")]
+[node name="arma" parent="CharacterView/InventoryPj" instance=ExtResource("1_bl277")]
 layout_mode = 2
 
 [node name="casco" parent="CharacterView/InventoryPj" instance=ExtResource("1_bl277")]
@@ -33,7 +33,7 @@ layout_mode = 2
 [node name="guantes" parent="CharacterView/InventoryPj" instance=ExtResource("1_bl277")]
 layout_mode = 2
 
-[node name="armor" parent="CharacterView/InventoryPj" instance=ExtResource("1_bl277")]
+[node name="armadura" parent="CharacterView/InventoryPj" instance=ExtResource("1_bl277")]
 layout_mode = 2
 
 [node name="botas" parent="CharacterView/InventoryPj" instance=ExtResource("1_bl277")]
@@ -62,37 +62,4 @@ script = ExtResource("4_oao5v")
 [node name="Slot" parent="ItemListView/InventoryItems" instance=ExtResource("1_bl277")]
 layout_mode = 2
 
-[node name="Slot2" parent="ItemListView/InventoryItems" instance=ExtResource("1_bl277")]
-layout_mode = 2
-
-[node name="Slot3" parent="ItemListView/InventoryItems" instance=ExtResource("1_bl277")]
-layout_mode = 2
-
-[node name="Slot4" parent="ItemListView/InventoryItems" instance=ExtResource("1_bl277")]
-layout_mode = 2
-
-[node name="Slot5" parent="ItemListView/InventoryItems" instance=ExtResource("1_bl277")]
-layout_mode = 2
-
-[node name="Slot6" parent="ItemListView/InventoryItems" instance=ExtResource("1_bl277")]
-layout_mode = 2
-
-[node name="Slot7" parent="ItemListView/InventoryItems" instance=ExtResource("1_bl277")]
-layout_mode = 2
-
-[node name="Slot8" parent="ItemListView/InventoryItems" instance=ExtResource("1_bl277")]
-layout_mode = 2
-
-[node name="Slot9" parent="ItemListView/InventoryItems" instance=ExtResource("1_bl277")]
-layout_mode = 2
-
-[node name="Slot10" parent="ItemListView/InventoryItems" instance=ExtResource("1_bl277")]
-layout_mode = 2
-
-[node name="Slot11" parent="ItemListView/InventoryItems" instance=ExtResource("1_bl277")]
-layout_mode = 2
-
-[node name="Slot12" parent="ItemListView/InventoryItems" instance=ExtResource("1_bl277")]
-layout_mode = 2
-
-[connection signal="item_pressed" from="CharacterView/InventoryPj/weapon" to="." method="_on_slot_item_pressed"]
+[connection signal="item_pressed" from="CharacterView/InventoryPj/arma" to="." method="_on_slot_item_pressed"]
