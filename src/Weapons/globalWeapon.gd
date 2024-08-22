@@ -1,17 +1,5 @@
-extends Area2D
-
+extends GlobalItem
 class_name GlobalWeapon
-
-
-signal equipped
-signal unequipped
-
-enum ItemType {WEAPON, ARMOR, BOOTS, HELMET, GLOVES, ACCESSORY}
-
-var item_type: ItemType
-var item_name: String
-var item_power: float
-var item_defense: float
 
 @export var fire_rate: float = 1.0  # Disparos por segundo
 @export var bullet_scene: PackedScene
@@ -21,17 +9,9 @@ var item_defense: float
 @onready var shooting_point = $WeaponPivot/Pistol/ShootingPoint
 
 func _ready():
-	
+	super._ready()
 	timer.wait_time = 1.0 / fire_rate
 	timer.start()
-	
-
-# Método para inicializar los valores del ítem
-func initialize_item(_item_type: ItemType, _name: String, _power: float, _defense: float):
-	item_type = _item_type
-	item_name = _name
-	item_power = _power
-	item_defense = _defense
 
 func _physics_process(delta):
 	aim_at_nearest_enemy()
@@ -44,8 +24,7 @@ func aim_at_nearest_enemy():
 
 func is_enemy_in_range() -> bool:
 	var enemies_in_range = get_overlapping_bodies()
-	return enemies_in_range.size() > 0  # Retorna verdadero si hay enemigos
-
+	return enemies_in_range.size() > 0
 
 func shoot():
 	if bullet_scene:
@@ -56,5 +35,10 @@ func shoot():
 		get_tree().current_scene.add_child(new_bullet)
 
 func _on_timer_timeout():
-	if is_enemy_in_range():  # Verifica si hay enemigos en rango
+	if is_enemy_in_range():
 		shoot()
+
+# Sobreescribimos el método use para implementar la lógica específica del arma
+func use(character):
+	# Implementar lógica de uso del arma si es necesario
+	pass

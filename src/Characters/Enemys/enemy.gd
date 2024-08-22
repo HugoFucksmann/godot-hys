@@ -29,7 +29,7 @@ func take_damage(amount: int):
 		die()
 
 func die():
-	PlayerData.score += score
+	GlobalState.score += score
 	play_death_effects()  # Método para reproducir efectos al morir
 	queue_free()
 

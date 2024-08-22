@@ -1,6 +1,7 @@
 class_name InventoryPj
 extends Control
 
+signal item_unequipped(item)
 # Diccionario para almacenar los ítems equipados
 var equipped_items = {
 	"weapon": null,
@@ -90,8 +91,9 @@ func unequip_item(slot_type):
 	if equipped_items[slot_type]:
 		var item = equipped_items[slot_type]
 		equipped_items[slot_type] = null
-		player_items.append(item)
 		update_inventory_ui()
-		emit_signal("item_list_updated")
+		emit_signal("item_unequipped", item)
 		return item
 	return null
+
+

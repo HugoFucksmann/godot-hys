@@ -42,6 +42,7 @@ position = Vector2(726, 237)
 
 [node name="Mob" parent="." instance=ExtResource("3_ofjwr")]
 position = Vector2(919, 470)
+score = 0
 
 [node name="PinTree2" parent="." instance=ExtResource("2_ter85")]
 position = Vector2(323, 648)

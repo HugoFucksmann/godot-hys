@@ -1,0 +1,12 @@
+{
+	"Warrior": {
+		"max_health": 150.0,
+		"armor": 10.0,
+		"speed": 80.0
+	},
+	"Mage": {
+		"max_health": 100.0,
+		"armor": 5.0,
+		"speed": 90.0
+	}
+}
