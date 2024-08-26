@@ -23,13 +23,15 @@ script = ExtResource("3_h00lh")
 
 [node name="InventoryPanel" type="Panel" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 991.0
+offset_bottom = 558.0
 
 [node name="SlotsContainer" type="GridContainer" parent="InventoryPanel"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 13.0
+offset_top = 49.0
+offset_right = 953.0
+offset_bottom = 302.0
 
 [node name="slot1" type="TextureButton" parent="InventoryPanel/SlotsContainer"]
 layout_mode = 2
@@ -57,8 +59,10 @@ script = ExtResource("4_n8pm0")
 
 [node name="CharacterStatsPanel" type="Panel" parent="InventoryPanel"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 18.0
+offset_top = 367.0
+offset_right = 956.0
+offset_bottom = 535.0
 
 [node name="StatsLabel" type="Label" parent="InventoryPanel/CharacterStatsPanel"]
 layout_mode = 0

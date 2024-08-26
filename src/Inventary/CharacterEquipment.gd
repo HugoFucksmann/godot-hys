@@ -27,6 +27,11 @@ func equip_item(item: Item) -> bool:
 		equipment[item.type] = item
 		emit_signal("item_equipped", item, item.type)
 		update_stats()
+		# Instanciar la escena del ítem y añadirla al personaje
+		var item_instance = item.instantiate_scene()
+		if item_instance:
+			add_child(item_instance)
+
 		return true
 	return false
 
@@ -36,6 +41,10 @@ func unequip_item(slot: String) -> Item:
 		equipment[slot] = null
 		emit_signal("item_unequipped", item, slot)
 		update_stats()
+		var item_instance = get_node_or_null(item.name)
+		if item_instance:
+			remove_child(item_instance)
+			item_instance.queue_free()
 		return item
 	return null
 

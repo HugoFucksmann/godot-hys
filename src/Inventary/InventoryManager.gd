@@ -8,6 +8,7 @@ extends Node
 
 func _ready():
 	# Conectar señales de los slots de inventario
+	equip_button.connect("equip_requested", _on_equip_requested)
 	for slot in inventory_slots.get_children():
 		if slot is InventorySlot:
 			slot.slot_clicked.connect(_on_inventory_slot_clicked)
@@ -15,10 +16,8 @@ func _ready():
 	# Conectar señal del botón de equipar
 	equip_button.connect("pressed", _on_equip_button_pressed)
 	equip_button.hide()
-	var sword = Item.new("Espada", "arma", {"ataque": 5})
-	var shield = Item.new("Escudo", "accesorio", {"defensa": 3})
-	inventory.add_item(sword)
-	inventory.add_item(shield)
+	var area_gun = Item.new("Area Gun", "arma", {"ataque": 7},"res://src/Items/Weapons/gun/area_gun.tscn")
+	inventory.add_item(area_gun)
 	update_inventory_ui()
 	
 func _on_inventory_slot_clicked(slot: InventorySlot):
