@@ -24,23 +24,40 @@ func update_item_grid():
 		remove_child(child)
 		child.queue_free()
 
-	# Agregar los ítems del jugador al GridContainer
 	for item in all_items:
-		var item_node = item
+		var item_node
 		if item is PackedScene:
 			item_node = item.instantiate()
-		add_child(item_node)
-		# Conecta la señal de clic para cada ítem
-		item_node.connect("gui_input", Callable(self, "_on_item_gui_input").bind(item))
-	# Imprimir para depuración
-	print("Actualizando grid con ", all_items.size(), " ítems")
-	
+		elif item is Node:
+			# Eliminar el nodo de su padre anterior antes de agregarlo
+			if item.get_parent():
+				item.get_parent().remove_child(item)
+			item_node = item
+		else:
+			print("Item no válido:", item)
+			continue
+
+		# Crear un contenedor para el ítem
+		var item_container = Control.new()
+		item_container.custom_minimum_size = Vector2(64, 64)
+		item_node.position = item_container.custom_minimum_size / 2
+		item_container.add_child(item_node)
+
+		# Agregar el contenedor al GridContainer
+		add_child(item_container)
+		
 func _on_item_gui_input(event: InputEvent, item):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		emit_signal("item_pressed", item)
-		
+
 func _on_item_pressed(item):
-	emit_signal("item_pressed", item)
+	# Realiza aquí las acciones necesarias al presionar el ítem
+	# Por ejemplo, mover el ítem a `inventoryPj`
+	if item in all_items:
+		# Lógica para mover el ítem a `inventoryPj`
+		get_tree().call_group("inventoryPj", "_on_item_received", item)
+		all_items.erase(item)
+		update_item_grid()
 
 func get_num_slots():
 	return all_items.size()

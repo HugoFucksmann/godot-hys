@@ -1,10 +1,38 @@
-[gd_scene load_steps=6 format=3 uid="uid://sl4w7ahvylvf"]
+[gd_scene load_steps=7 format=3 uid="uid://sl4w7ahvylvf"]
 
-[ext_resource type="Texture2D" uid="uid://bp2ki2c4raed5" path="res://assets/images/background_main.webp" id="1_j1mmi"]
-[ext_resource type="Theme" uid="uid://d4bq1kwvmicb1" path="res://assets/theme/new_theme.tres" id="1_vtrg0"]
 [ext_resource type="PackedScene" uid="uid://8vhxo4yvnvq1" path="res://src/UserInterface/play_button.tscn" id="2_2pdo3"]
 [ext_resource type="Script" path="res://src/MainScreens/main_screen.gd" id="2_5gvmj"]
+[ext_resource type="Texture2D" uid="uid://cxqpbvpxijpqa" path="res://assets/images/image (4).webp" id="2_8bql7"]
 [ext_resource type="PackedScene" uid="uid://p0tkutvtnn8" path="res://src/UserInterface/exit_button.tscn" id="3_v7m4x"]
+
+[sub_resource type="FontFile" id="FontFile_jjv4r"]
+cache/0/34/0/ascent = 0.0
+cache/0/34/0/descent = 0.0
+cache/0/34/0/underline_position = 0.0
+cache/0/34/0/underline_thickness = 0.0
+cache/0/34/0/scale = 1.0
+cache/0/34/0/kerning_overrides/34/0 = Vector2(0, 0)
+cache/0/34/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/34/0/kerning_overrides/72/0 = Vector2(0, 0)
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/34/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/72/0 = Vector2(0, 0)
+cache/0/72/0/ascent = 0.0
+cache/0/72/0/descent = 0.0
+cache/0/72/0/underline_position = 0.0
+cache/0/72/0/underline_thickness = 0.0
+cache/0/72/0/scale = 1.0
+cache/0/72/0/kerning_overrides/34/0 = Vector2(0, 0)
+cache/0/72/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/72/0/kerning_overrides/72/0 = Vector2(0, 0)
+
+[sub_resource type="Theme" id="Theme_nc2tj"]
+default_font = SubResource("FontFile_jjv4r")
 
 [node name="MainScreen" type="Control"]
 layout_mode = 3
@@ -15,27 +43,33 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("1_vtrg0")
+theme = SubResource("Theme_nc2tj")
 script = ExtResource("2_5gvmj")
 
 [node name="BackgroundMain" type="Sprite2D" parent="."]
-position = Vector2(720, 360)
-scale = Vector2(1.40625, 1.02273)
-texture = ExtResource("1_j1mmi")
+position = Vector2(541.934, 958.671)
+scale = Vector2(1.00572, 0.99826)
+texture = ExtResource("2_8bql7")
 
 [node name="Menu" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 612.0
-offset_top = 496.0
-offset_right = 834.0
-offset_bottom = 600.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = -94.0
+offset_right = 111.0
+offset_bottom = 94.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="PlayButton" parent="Menu" instance=ExtResource("2_2pdo3")]
 layout_mode = 2
-theme_override_font_sizes/font_size = 34
+theme_override_font_sizes/font_size = 72
 
 [node name="ExitButton" parent="Menu" instance=ExtResource("3_v7m4x")]
 layout_mode = 2
-theme_override_font_sizes/font_size = 34
 
 [connection signal="button_up" from="Menu/ExitButton" to="Menu/PlayButton" method="_on_exit_button_button_up"]

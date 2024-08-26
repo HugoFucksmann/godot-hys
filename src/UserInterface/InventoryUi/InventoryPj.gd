@@ -23,9 +23,12 @@ func _ready():
 			slot_node.connect("gui_input", _on_slot_clicked.bind(slot_type))
 
 func add_item(item):
-	player_items.append(item)
-	emit_signal("item_list_updated")
-	emit_signal("item_pressed", item)
+	if item is PackedScene or item is Node:
+		player_items.append(item)
+		emit_signal("item_list_updated")
+		emit_signal("item_pressed", item)
+	else:
+		print("Tipo de item no válido:", item)
 
 func equip_item(slot_type, item):
 	# Validar que el slot_type sea válido
@@ -96,4 +99,32 @@ func unequip_item(slot_type):
 		return item
 	return null
 
+func _on_item_received(item):
+	 # Lógica para manejar el ítem que se recibe desde InventoryItems
+	player_items.append(item)
+	
+	# Llamar a la actualización de la UI
+	get_tree().call_group("inventoryUI", "update_item_slots")
 
+func update_item_grid():
+	# Limpiar los slots antes de actualizar
+	for child in get_children():
+		remove_child(child)
+		child.queue_free()
+
+	# Actualizar la interfaz con los ítems equipados
+	for item in player_items:
+		var item_node
+		if item is PackedScene:
+			item_node = item.instantiate()
+		elif item is Node:
+			item_node = item
+		else:
+			print("Item no válido:", item)
+			continue
+
+		var item_container = Control.new()
+		item_container.custom_minimum_size = Vector2(64, 64)
+		item_node.position = item_container.custom_minimum_size / 2
+		item_container.add_child(item_node)
+		add_child(item_container)

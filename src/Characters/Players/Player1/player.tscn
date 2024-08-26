@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Characters/Players/Player1/player.gd" id="1_xu3ee"]
 [ext_resource type="PackedScene" uid="uid://pbmyh1qru7p" path="res://src/Characters/Players/Player1/asset/happy_boo.tscn" id="1_xubg0"]
-[ext_resource type="PackedScene" uid="uid://ssak5babvl50" path="res://src/Weapons/gun/area_gun.tscn" id="3_qlt66"]
+[ext_resource type="PackedScene" uid="uid://ssak5babvl50" path="res://src/Items/Weapons/gun/area_gun.tscn" id="3_qlt66"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n5i0m"]
 radius = 33.1361

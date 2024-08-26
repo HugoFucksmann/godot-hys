@@ -24,7 +24,16 @@ func _on_item_unequipped(item):
 func add_player_item(item):
 	print("Añadiendo item al inventario")
 	inventoryPj.add_item(item)
-	inventory_items.all_items.append(item)
+	
+	# Si el item es una escena empaquetada, añadirla directamente
+	if item is PackedScene:
+		inventory_items.all_items.append(item)
+	# Si es un nodo instanciado, añadirlo directamente
+	elif item is Node:
+		inventory_items.all_items.append(item)
+	else:
+		print("Tipo de item no reconocido:", item)
+	
 	inventory_items.update_item_grid()
 	print("Número de ítems en inventory_items: ", inventory_items.all_items.size())
 
@@ -72,4 +81,57 @@ func _on_unequip_confirmed(item):
 			break
 	
 func update_item_slots():
+	# Actualiza la UI de InventoryItems
 	inventory_items.update_item_grid()
+
+	# Actualiza la UI de InventoryPj
+	inventoryPj.update_item_grid()
+
+func update_item_grid():
+	# Actualizar la UI de InventoryItems
+	_update_inventory_items()
+	
+	# Actualizar la UI de InventoryPj
+	_update_inventory_pj()
+
+func _update_inventory_items():
+	# Limpiar el GridContainer de InventoryItems antes de actualizar
+	inventory_items.clear()
+
+	for item in inventory_items.all_items:
+		var item_node
+		if item is PackedScene:
+			item_node = item.instantiate()
+		elif item is Node:
+			if item.get_parent():
+				item.get_parent().remove_child(item)
+				item_node = item
+			else:
+				continue
+		
+		var item_container = Control.new()
+		item_container.custom_minimum_size = Vector2(64, 64)
+		item_node.position = item_container.custom_minimum_size / 2
+		item_container.add_child(item_node)
+		inventory_items.add_child(item_container)
+
+func _update_inventory_pj():
+	# Limpiar el GridContainer de InventoryPj antes de actualizar
+	inventoryPj.clear()
+
+	for item in inventoryPj.player_items:
+		var item_node
+		if item is PackedScene:
+			item_node = item.instantiate()
+		elif item is Node:
+			if item.get_parent():
+				item.get_parent().remove_child(item)
+				item_node = item
+			else:
+				continue
+
+		var item_container = Control.new()
+		item_container.custom_minimum_size = Vector2(64, 64)
+		item_node.position = item_container.custom_minimum_size / 2
+		item_container.add_child(item_node)
+		inventoryPj.add_child(item_container)

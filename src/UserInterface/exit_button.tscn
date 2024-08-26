@@ -3,7 +3,9 @@
 [ext_resource type="Script" path="res://src/UserInterface/exit_button.gd" id="1_bm6df"]
 
 [node name="ExitButton" type="Button"]
-theme_override_font_sizes/font_size = 30
+offset_right = 318.0
+offset_bottom = 131.0
+theme_override_font_sizes/font_size = 72
 text = "Exit"
 script = ExtResource("1_bm6df")
 

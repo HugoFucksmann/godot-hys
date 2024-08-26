@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://src/UserInterface/play_button.gd" id="1_jenhw"]
 
 [node name="PlayButton" type="Button"]
+offset_right = 200.0
+offset_bottom = 80.0
 theme_override_font_sizes/font_size = 30
 text = "Play"
 script = ExtResource("1_jenhw")
