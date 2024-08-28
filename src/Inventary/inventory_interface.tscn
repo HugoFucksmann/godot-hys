@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b733lryoufc8u"]
+[gd_scene load_steps=5 format=3 uid="uid://b733lryoufc8u"]
 
 [ext_resource type="Script" path="res://src/Inventary/InventoryManager.gd" id="1_hhl7g"]
 [ext_resource type="Script" path="res://src/Inventary/CharacterEquipment.gd" id="2_lhp04"]
-[ext_resource type="Script" path="res://src/Inventary/Inventory.gd" id="3_h00lh"]
-[ext_resource type="Script" path="res://src/Inventary/InventorySlot.gd" id="4_n8pm0"]
+[ext_resource type="PackedScene" uid="uid://byod26tpk52or" path="res://src/Inventary/slot.tscn" id="3_ig8uj"]
 [ext_resource type="Script" path="res://src/Inventary/EquipButton.gd" id="5_8nrxh"]
 
 [node name="InventoryInterface" type="Control"]
@@ -15,63 +14,61 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hhl7g")
 
-[node name="CharacterEquipment" type="Node" parent="."]
+[node name="CharacterEquipment" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 script = ExtResource("2_lhp04")
 
-[node name="Inventory" type="Node" parent="."]
-script = ExtResource("3_h00lh")
+[node name="WeaponSlot" type="TextureRect" parent="CharacterEquipment"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ArmorSlot" type="TextureRect" parent="CharacterEquipment"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HelmetSlot" type="TextureRect" parent="CharacterEquipment"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BootsSlot" type="TextureRect" parent="CharacterEquipment"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GlovesSlot" type="TextureRect" parent="CharacterEquipment"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AccessorySlot" type="TextureRect" parent="CharacterEquipment"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="InventoryPanel" type="Panel" parent="."]
 layout_mode = 0
-offset_right = 991.0
-offset_bottom = 558.0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="SlotsContainer" type="GridContainer" parent="InventoryPanel"]
 layout_mode = 0
-offset_left = 13.0
-offset_top = 49.0
-offset_right = 953.0
-offset_bottom = 302.0
+offset_left = -15.0
+offset_top = 901.0
+offset_right = 1095.0
+offset_bottom = 1900.0
+theme_override_constants/h_separation = -30
+theme_override_constants/v_separation = 30
+columns = 4
 
-[node name="slot1" type="TextureButton" parent="InventoryPanel/SlotsContainer"]
-layout_mode = 2
-script = ExtResource("4_n8pm0")
-
-[node name="slot2" type="TextureButton" parent="InventoryPanel/SlotsContainer"]
-layout_mode = 2
-script = ExtResource("4_n8pm0")
-
-[node name="slot3" type="TextureButton" parent="InventoryPanel/SlotsContainer"]
-layout_mode = 2
-script = ExtResource("4_n8pm0")
-
-[node name="slot4" type="TextureButton" parent="InventoryPanel/SlotsContainer"]
-layout_mode = 2
-script = ExtResource("4_n8pm0")
-
-[node name="slot5" type="TextureButton" parent="InventoryPanel/SlotsContainer"]
-layout_mode = 2
-script = ExtResource("4_n8pm0")
-
-[node name="slot6" type="TextureButton" parent="InventoryPanel/SlotsContainer"]
-layout_mode = 2
-script = ExtResource("4_n8pm0")
-
-[node name="CharacterStatsPanel" type="Panel" parent="InventoryPanel"]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 367.0
-offset_right = 956.0
-offset_bottom = 535.0
-
-[node name="StatsLabel" type="Label" parent="InventoryPanel/CharacterStatsPanel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="Node2D" parent="InventoryPanel/SlotsContainer" instance=ExtResource("3_ig8uj")]
 
 [node name="EquipButton" type="Button" parent="InventoryPanel"]
-layout_mode = 2
-offset_top = 24.0
+layout_mode = 0
 offset_right = 8.0
-offset_bottom = 32.0
+offset_bottom = 8.0
 script = ExtResource("5_8nrxh")

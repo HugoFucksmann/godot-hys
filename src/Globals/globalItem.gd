@@ -1,48 +1,34 @@
-extends Area2D
+extends Resource
 class_name GlobalItem
-
-signal equipped
-signal unequipped
 
 enum ItemType {WEAPON, ARMOR, BOOTS, HELMET, GLOVES, ACCESSORY}
 
-var item_type: ItemType
-var item_name: String
-var max_health: float = 0
-var armor: float = 0
-var pickup_radius: float = 0
-var crit_chance: float = 0
-var crit_damage: float = 0
-var ranged_attack: float = 0
-var melee_attack: float = 0
-var magic_attack: float = 0
+@export var name: String
+@export var icon: Texture
+@export var item_type: ItemType
+@export var bullet_scene: PackedScene
+@export var stats: Dictionary = {
+	"damage": 0,
+	"attack_speed": 0,
+	"crit_damage": 0,
+	"crit_chance": 0,
+	"defense": 0,
+	"health": 0,
+	"pickup_radius": 0,
+	"distance_damage": 0,
+	"melee_damage": 0,
+	"magic_damage": 0
+}
 
-func _init():
-	pass
+func _init(p_name: String = "", p_icon: Texture = null, p_item_type: ItemType = ItemType.WEAPON, p_bullet_scene: PackedScene = null):
+	name = p_name
+	icon = p_icon
+	item_type = p_item_type
+	bullet_scene = p_bullet_scene
 
-# Añadir _ready() aunque no haga nada
-func _ready():
-	# Método vacío para permitir super._ready() en subclases
-	pass
+func set_stat(stat_name: String, value: float):
+	if stat_name in stats:
+		stats[stat_name] = value
 
-func initialize_item(_item_type: ItemType, _name: String, stats: Dictionary):
-	item_type = _item_type
-	item_name = _name
-	max_health = stats.get("max_health", 0)
-	armor = stats.get("armor", 0)
-	pickup_radius = stats.get("pickup_radius", 0)
-	crit_chance = stats.get("crit_chance", 0)
-	crit_damage = stats.get("crit_damage", 0)
-	ranged_attack = stats.get("ranged_attack", 0)
-	melee_attack = stats.get("melee_attack", 0)
-	magic_attack = stats.get("magic_attack", 0)
-
-
-func equip(character):
-	emit_signal("equipped", self)
-
-func unequip(character):
-	emit_signal("unequipped", self)
-
-func use(character):
-	pass  # Implementar en subclases si es necesario
+func get_stat(stat_name: String) -> float:
+	return stats.get(stat_name, 0)

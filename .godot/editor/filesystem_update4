@@ -1,0 +1,14 @@
+res://src/MainScreens/main_screen.tscn
+res://src/Characters/Players/globalPlayer.gd
+res://src/Inventary/inventory_interface.tscn
+res://src/Inventary/slot.tscn
+res://src/Globals/globalItem.gd
+res://src/Items/globalItem.gd
+res://src/Items/Weapons/gun/gun.gd
+res://src/Inventary/CharacterEquipment.gd
+res://src/Globals/globalState.gd
+res://src/Inventary/InventoryManager.gd
+res://src/Inventary/InventorySlot.gd
+res://src/Items/Weapons/gun/area_gun.tscn
+res://src/Inventary/EquipButton.gd
+res://src/Inventary/InventorySlot.tscn

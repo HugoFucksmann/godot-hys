@@ -1,16 +1,21 @@
 class_name InventorySlot
-extends TextureButton
+extends TextureRect
 
 signal slot_clicked(slot: InventorySlot)
 
-var item: Item = null
+var item: GlobalItem = null
 
-func set_item(_item: Item):
+func set_item(_item: GlobalItem):
 	item = _item
-	# Actualizar la textura del botón con el ícono del ítem
+	if item:
+		texture = item.icon
+	else:
+		texture = null
 
 func _ready():
-	connect("pressed", _on_pressed)
+	mouse_filter = Control.MOUSE_FILTER_PASS
+	connect("gui_input", _on_gui_input)
 
-func _on_pressed():
-	emit_signal("slot_clicked", self)
+func _on_gui_input(event: InputEvent):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		emit_signal("slot_clicked", self)
