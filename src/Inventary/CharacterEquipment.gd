@@ -1,7 +1,7 @@
 extends Node
 
-signal item_equipped(item: Item, slot: String)
-signal item_unequipped(item: Item, slot: String)
+signal item_equipped(item: GlobalItem, slot: String)
+signal item_unequipped(item: GlobalItem, slot: String)
 signal stats_updated(new_stats: Dictionary)
 
 var equipment = {
@@ -30,21 +30,26 @@ var base_stats = {
 
 func _ready():
 	for slot in equipment_slots.values():
-		slot.connect("gui_input", _on_slot_gui_input.bind(slot))
+		if slot:
+			slot.connect("gui_input", _on_slot_gui_input.bind(slot))
+		else:
+			print("Error: slot es null")
 
-func equip_item(item: Item) -> bool:
-	if item.type in equipment:
-		if equipment[item.type]:
-			unequip_item(item.type)
 
-		equipment[item.type] = item
-		equipment_slots[item.type].texture = item.icon
-		emit_signal("item_equipped", item, item.type)
+func equip_item(item: GlobalItem) -> bool:
+	print("Attempting to equip item:", item.name, "of type:", GlobalItem.ItemType.keys()[item.item_type])
+	var item_type_string = GlobalItem.ItemType.keys()[item.item_type].to_lower()
+	if item_type_string in equipment:
+		if equipment[item_type_string]:
+			unequip_item(item_type_string)
+		equipment[item_type_string] = item
+		equipment_slots[item_type_string].texture = item.icon
+		emit_signal("item_equipped", item, item_type_string)
 		update_stats()
 		return true
 	return false
 
-func unequip_item(slot: String) -> Item:
+func unequip_item(slot: String) -> GlobalItem:
 	if slot in equipment and equipment[slot]:
 		var item = equipment[slot]
 		equipment[slot] = null
@@ -60,7 +65,8 @@ func update_stats():
 	for item in equipment.values():
 		if item:
 			for stat in item.stats:
-				total_stats[stat] += item.stats[stat]
+				if stat in total_stats:
+					total_stats[stat] += item.stats[stat]
 
 	emit_signal("stats_updated", total_stats)
 

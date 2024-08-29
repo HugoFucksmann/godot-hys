@@ -8,10 +8,8 @@ var deaths: int = 0
 
 func _ready():
 	# Añadir el arma al inventario inicial del jugador
-	var initial_gun = load("res://src/Items/Weapons/gun/gun.gd").new()
+	var initial_gun = load("res://src/Items/Weapons/gun/area_gun.tscn").instantiate()
 	add_item_to_inventory(initial_gun)
-
-
 
 func save_game():
 	# Implementa la lógica para guardar el juego
@@ -27,10 +25,13 @@ var max_inventory_slots = 20
 signal inventory_updated
 
 func add_item_to_inventory(item: GlobalItem):
+	print("Attempting to add item to inventory:", item.name)
 	if player_inventory.size() < max_inventory_slots:
 		player_inventory.append(item)
+		print("Item added to inventory. New size:", player_inventory.size())
 		emit_signal("inventory_updated")
 		return true
+	print("Inventory full, couldn't add item")
 	return false
 
 func remove_item_from_inventory(item: GlobalItem):

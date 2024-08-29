@@ -3,16 +3,16 @@
 [ext_resource type="Script" path="res://src/Inventary/InventorySlot.gd" id="1_bl1w2"]
 
 [node name="InventorySlot" type="TextureRect"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 149.0
+offset_bottom = 149.0
 script = ExtResource("1_bl1w2")
 
 [node name="ItemIcon" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 116.0
+offset_bottom = 99.0
 
 [node name="ItemCount" type="Label" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_right = 105.0
+offset_bottom = 33.0

@@ -1,9 +1,9 @@
-extends Resource
+extends Area2D
 class_name GlobalItem
 
 enum ItemType {WEAPON, ARMOR, BOOTS, HELMET, GLOVES, ACCESSORY}
 
-@export var name: String
+
 @export var icon: Texture
 @export var item_type: ItemType
 @export var bullet_scene: PackedScene
