@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1724931754
+::res://::1725024389
 default_bus_layout.tres::AudioBusLayout::6564268947468103023::1723814130::0::1::::<><>::
 icon.png::CompressedTexture2D::621515402784007901::1723814130::1724756971::1::::<><>::
 ::res://addons/::1723814130
@@ -15,12 +15,13 @@ new_font_variation.tres::FontVariation::2129595528643787006::1724071708::0::1:::
 background_main.webp::CompressedTexture2D::3495614416462517060::1724069017::1724756971::1::::<><>::
 image (4).webp::CompressedTexture2D::6421128483029801540::1724415194::1724756972::1::::<><>::
 image (5).webp::CompressedTexture2D::5391731793558148836::1724415194::1724756972::1::::<><>::
-::res://assets/inventary/::1724856510
+::res://assets/inventary/::1725022601
+dhqge2m-32b064aa-562a-4bf5-ac1d-e34fad584c1a.png::CompressedTexture2D::1166885194784653749::1725022600::1725022601::1::::<><>::
 inventaryBG.jpeg::CompressedTexture2D::7189892906875843668::1724855996::1724856008::1::::<><>::
 slot.png::CompressedTexture2D::5439535161808729852::1724856503::1724856510::1::::<><>::
 ::res://assets/theme/::1724085634
 new_theme.tres::Theme::9197821357051788132::1724085634::0::1::::<><>::uid://ctfymhqfpjl38::::res://assets/fonts/NewAmsterdam-Regular.ttf
-::res://src/::1724687432
+::res://src/::1725023306
 ::res://src/Characters/::1724756971
 charactersList.json::JSON::-1::1724336579::0::1::::<><>::
 ground_shadow.png::CompressedTexture2D::4668018078467755571::1724069017::1724756971::1::::<><>::
@@ -57,23 +58,23 @@ circle_32.png::CompressedTexture2D::6271663262871881894::1724069017::1724756971:
 smoke_explosion.gd::GDScript::-1::1724069017::0::1::::<>Node2D<>::
 smoke_explosion.gdshader::Shader::-1::1724069017::0::1::::<><>::
 smoke_explosion.tscn::PackedScene::7675803860678853612::1724071695::0::1::::<><>::res://src/Characters/smoke_explosion/smoke_explosion.gdshader<>res://src/Characters/smoke_explosion/smoke_explosion.gd
-::res://src/Globals/::1724860537
+::res://src/Globals/::1724940262
 characterManager.gd::GDScript::-1::1724336788::0::1::::<>Node<>::
 globalCharacter.gd::GDScript::-1::1724341219::0::1::::GlobalCharacter<>CharacterBody2D<>::
-globalItem.gd::GDScript::-1::1724859094::0::1::::GlobalItem<>Resource<>::
-globalState.gd::GDScript::-1::1724860537::0::1::::<>Node<>::
+globalItem.gd::GDScript::-1::1724939305::0::1::::GlobalItem<>Area2D<>::
+globalState.gd::GDScript::-1::1724940262::0::1::::<>Node<>::
 inventorManager.gd::GDScript::-1::1724344521::0::1::::<>Node<>::
 playerData.tscn::PackedScene::7368150316127816140::1724335797::0::1::::<><>::res://src/Globals/globalCharacter.gd
-::res://src/Inventary/::1724864252
-CharacterEquipment.gd::GDScript::-1::1724858202::0::1::::<>Node<>::
+::res://src/Inventary/::1725023986
+CharacterEquipment.gd::GDScript::-1::1724938549::0::1::::<>Node<>::
 EquipButton.gd::GDScript::-1::1724860205::0::1::::<>Button<>::
 Inventory.gd::GDScript::-1::1724687854::0::1::::<>Node<>::
-InventoryManager.gd::GDScript::-1::1724860488::0::1::::<>Node<>::
-InventorySlot.gd::GDScript::-1::1724859432::0::1::::InventorySlot<>TextureRect<>::
-InventorySlot.tscn::PackedScene::8082701098821790619::1724864252::0::1::::<><>::res://src/Inventary/InventorySlot.gd
-inventory_interface.tscn::PackedScene::4691986907389506982::1724864252::0::1::::<><>::res://src/Inventary/InventoryManager.gd<>res://src/Inventary/CharacterEquipment.gd<>uid://byod26tpk52or::::res://src/Inventary/slot.tscn<>res://src/Inventary/EquipButton.gd
+InventoryManager.gd::GDScript::-1::1724939665::0::1::::<>Node<>::
+InventorySlot.gd::GDScript::-1::1724939615::0::1::::InventorySlot<>TextureRect<>::
+InventorySlot.tscn::PackedScene::8082701098821790619::1725023986::0::1::::<><>::res://src/Inventary/InventorySlot.gd
+inventory_interface.tscn::PackedScene::4691986907389506982::1725023986::0::1::::<><>::res://src/Inventary/InventoryManager.gd<>res://src/Inventary/CharacterEquipment.gd<>uid://dnfk52tj6whhr::::res://src/Inventary/InventorySlot.tscn<>res://src/Inventary/EquipButton.gd
 item.gd::GDScript::-1::1724691657::0::1::::Item<>Resource<>::
-slot.tscn::PackedScene::4100086245247690633::1724864252::0::1::::<><>::
+slot.tscn::PackedScene::4100086245247690633::1724932622::0::1::::<><>::res://src/Inventary/InventorySlot.gd
 ::res://src/Items/::1724855482
 ::res://src/Items/Accesorys/::1724416323
 globalAccesory.gd::GDScript::-1::1724415095::0::1::::GlobalAccessory<>GlobalItem<>::
@@ -92,12 +93,12 @@ globalHelmet.gd::GDScript::-1::1724415118::0::1::::GlobalHelmet<>GlobalItem<>::
 globalWeapon.gd::GDScript::-1::1724756916::0::1::::GlobalWeapon<>Area2D<>::
 weaponsItem.gd::GDScript::-1::1724689341::0::1::::WeaponSystem2<>RefCounted<>::
 weaponSystem.gd::GDScript::-1::1724689341::0::1::::WeaponSystem<>GlobalItem<>::
-::res://src/Items/Weapons/gun/::1724864252
-area_gun.gd::GDScript::-1::1724756916::0::1::::<>GlobalWeapon<>::
-area_gun.tscn::PackedScene::1300577420244192057::1724864252::0::1::::<><>::res://src/Items/Weapons/gun/area_gun.gd<>uid://cswb5do8rrj7q::::res://src/Items/Weapons/gun/asset/pistol.png
+::res://src/Items/Weapons/gun/::1725023986
+area_gun.gd::GDScript::-1::1724931994::0::1::::<>GlobalWeapon<>::
+area_gun.tscn::PackedScene::1300577420244192057::1725023986::0::1::::<><>::res://src/Items/Weapons/gun/gun.gd<>uid://cswb5do8rrj7q::::res://src/Items/Weapons/gun/asset/pistol.png
 Bullet.gd::GDScript::-1::1724421990::0::1::::<>Area2D<>::
 bullet.tscn::PackedScene::1237989899532059710::1724416463::0::1::::<><>::res://src/Items/Weapons/gun/Bullet.gd<>uid://dftkbqwsfd68r::::res://src/Items/Weapons/gun/asset/projectile.png
-gun.gd::GDScript::-1::1724859249::0::1::::<>GlobalItem<>::
+gun.gd::GDScript::-1::1724939732::0::1::::<>GlobalItem<>::
 ::res://src/Items/Weapons/gun/asset/::1724756971
 pistol.png::CompressedTexture2D::6081771334990092076::1724069017::1724756971::1::::<><>::
 projectile.png::CompressedTexture2D::7550039277502144023::1724069017::1724756971::1::::<><>::
@@ -109,12 +110,12 @@ impact.tscn::PackedScene::706737085132625066::1724416463::0::1::::<><>::res://sr
 muzzle_flash.gd::GDScript::-1::1724069017::0::1::::<>Node2D<>::
 muzzle_flash.png::CompressedTexture2D::3592944556550980239::1724069017::1724756971::1::::<><>::
 muzzle_flash.tscn::PackedScene::6601472980654318439::1724416463::0::1::::<><>::res://src/Items/Weapons/gun/asset/muzzle_flash/muzzle_flash.gd<>uid://brgpjilf7s2ul::::res://src/Items/Weapons/gun/asset/muzzle_flash/muzzle_flash.png
-::res://src/MainScreens/::1724864251
+::res://src/MainScreens/::1725023986
 end_screen.tscn::PackedScene::9201478598157705562::1724071695::0::1::::<><>::uid://d4bq1kwvmicb1::::res://assets/theme/new_theme.tres<>res://src/UserInterface/button_back.gd
 game_over.tscn::PackedScene::3557909337576727226::1724071695::0::1::::<><>::uid://d4bq1kwvmicb1::::res://assets/theme/new_theme.tres<>res://src/UserInterface/button_back.gd
 InventoryUI.tscn::PackedScene::5261753833054745009::1724171406::0::1::::<><>::res://src/UserInterface/InventoryUI.gd
 main_screen.gd::GDScript::-1::1724687347::0::1::::<>Control<>::
-main_screen.tscn::PackedScene::1287909102129647979::1724864251::0::1::::<><>::uid://8vhxo4yvnvq1::::res://src/UserInterface/play_button.tscn<>res://src/MainScreens/main_screen.gd<>uid://cxqpbvpxijpqa::::res://assets/images/image (4).webp<>uid://p0tkutvtnn8::::res://src/UserInterface/exit_button.tscn
+main_screen.tscn::PackedScene::1287909102129647979::1725023986::0::1::::<><>::uid://8vhxo4yvnvq1::::res://src/UserInterface/play_button.tscn<>res://src/MainScreens/main_screen.gd<>uid://cxqpbvpxijpqa::::res://assets/images/image (4).webp<>uid://p0tkutvtnn8::::res://src/UserInterface/exit_button.tscn
 pause_screen.tscn::PackedScene::2310035614853219783::1724164873::0::1::::<><>::uid://d4bq1kwvmicb1::::res://assets/theme/new_theme.tres<>uid://ctfymhqfpjl38::::res://assets/fonts/NewAmsterdam-Regular.ttf<>uid://p0tkutvtnn8::::res://src/UserInterface/exit_button.tscn
 survivor_game.gd::GDScript::-1::1724687426::0::1::::<>Node2D<>::
 survivor_game.tscn::PackedScene::2545008837962784464::1724423829::0::1::::<><>::uid://cu0m2t0cq28c6::::res://src/Characters/Players/Player1/player.tscn<>res://src/MainScreens/survivor_game.gd<>uid://bwey8fjrcr8qy::::res://src/maps/trees/pin_tree.tscn<>uid://r21si714ymj1::::res://src/Characters/Enemys/Mob/mob.tscn<>uid://bqxqinraxg203::::res://src/MainScreens/game_over.tscn
@@ -138,3 +139,6 @@ inventoryUI.gd::GDScript::-1::1724347578::0::1::::InventoryUI<>Node2D<>::
 inventoryUI.tscn::PackedScene::1450627517558574215::1724414006::0::1::::<><>::uid://bcbjd1kxcd8sf::::res://src/UserInterface/InventoryUi/slot.tscn<>res://src/UserInterface/InventoryUi/inventoryUI.gd<>res://src/UserInterface/InventoryUi/InventoryPj.gd<>res://src/UserInterface/InventoryUi/InventoryItems.gd
 slot.gd::GDScript::-1::1724334204::0::1::::<>PanelContainer<>::
 slot.tscn::PackedScene::2529415941142830469::1724347114::0::1::::<><>::res://src/UserInterface/InventoryUi/slot.gd
+::res://src/vInventary/::1725023986
+inventary.tscn::PackedScene::2018439099968032623::1725023986::0::1::::<><>::uid://cjq7l45nbnecq::::res://assets/inventary/slot.png<>res://src/vInventary/slot.gd
+slot.gd::GDScript::-1::1725023936::0::1::::<>Panel<>::

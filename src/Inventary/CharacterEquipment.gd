@@ -32,12 +32,8 @@ func _ready():
 	for slot in equipment_slots.values():
 		if slot:
 			slot.connect("gui_input", _on_slot_gui_input.bind(slot))
-		else:
-			print("Error: slot es null")
-
 
 func equip_item(item: GlobalItem) -> bool:
-	print("Attempting to equip item:", item.name, "of type:", GlobalItem.ItemType.keys()[item.item_type])
 	var item_type_string = GlobalItem.ItemType.keys()[item.item_type].to_lower()
 	if item_type_string in equipment:
 		if equipment[item_type_string]:
@@ -61,13 +57,11 @@ func unequip_item(slot: String) -> GlobalItem:
 
 func update_stats():
 	var total_stats = base_stats.duplicate()
-
 	for item in equipment.values():
 		if item:
 			for stat in item.stats:
 				if stat in total_stats:
 					total_stats[stat] += item.stats[stat]
-
 	emit_signal("stats_updated", total_stats)
 
 func _on_slot_gui_input(event: InputEvent, slot: TextureRect):

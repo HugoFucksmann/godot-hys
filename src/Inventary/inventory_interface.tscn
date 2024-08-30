@@ -1,13 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://b733lryoufc8u"]
+[gd_scene load_steps=5 format=3 uid="uid://b733lryoufc8u"]
 
 [ext_resource type="Script" path="res://src/Inventary/InventoryManager.gd" id="1_hhl7g"]
 [ext_resource type="Script" path="res://src/Inventary/CharacterEquipment.gd" id="2_lhp04"]
 [ext_resource type="PackedScene" uid="uid://dnfk52tj6whhr" path="res://src/Inventary/InventorySlot.tscn" id="3_knld6"]
-[ext_resource type="Script" path="res://src/Inventary/EquipButton.gd" id="5_8nrxh"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_f3ci2"]
 
-[node name="InventoryInterface" type="Control"]
+[node name="InventoryManager" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,20 +78,13 @@ offset_bottom = 1920.0
 
 [node name="SlotsContainer" type="GridContainer" parent="InventoryPanel"]
 layout_mode = 0
-offset_top = 1.0
-offset_right = 1063.0
-offset_bottom = 1041.0
-theme_override_constants/h_separation = -30
-theme_override_constants/v_separation = 30
-columns = 4
+offset_left = 44.0
+offset_top = 61.0
+offset_right = 1018.0
+offset_bottom = 981.0
+theme_override_constants/h_separation = 213
+theme_override_constants/v_separation = 200
+columns = 5
 
 [node name="InventorySlot" parent="InventoryPanel/SlotsContainer" instance=ExtResource("3_knld6")]
 layout_mode = 2
-
-[node name="EquipButton" type="Button" parent="InventoryPanel"]
-layout_mode = 0
-offset_left = 34.0
-offset_top = 34.0
-offset_right = 141.0
-offset_bottom = 138.0
-script = ExtResource("5_8nrxh")

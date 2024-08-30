@@ -1,0 +1,114 @@
+[gd_scene load_steps=4 format=3 uid="uid://300nra10avch"]
+
+[ext_resource type="Texture2D" uid="uid://cjq7l45nbnecq" path="res://assets/inventary/slot.png" id="1_hki0o"]
+[ext_resource type="Script" path="res://src/vInventary/slot.gd" id="2_tgd4s"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n21c6"]
+texture = ExtResource("1_hki0o")
+
+[node name="Inventary" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_top = 1260.0
+offset_right = 1088.0
+offset_bottom = 1915.0
+color = Color(0.409603, 0.409603, 0.409603, 1)
+
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_left = 64.0
+offset_top = 1328.0
+offset_right = 1056.0
+offset_bottom = 1864.0
+theme_override_constants/h_separation = -52
+theme_override_constants/v_separation = 25
+columns = 5
+
+[node name="Slot" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(240, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n21c6")
+script = ExtResource("2_tgd4s")
+
+[node name="Slot2" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(240, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n21c6")
+script = ExtResource("2_tgd4s")
+
+[node name="Slot3" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(240, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n21c6")
+script = ExtResource("2_tgd4s")
+
+[node name="Slot4" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(240, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n21c6")
+script = ExtResource("2_tgd4s")
+
+[node name="Slot5" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(240, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n21c6")
+script = ExtResource("2_tgd4s")
+
+[node name="Slot6" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(240, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n21c6")
+script = ExtResource("2_tgd4s")
+
+[node name="Slot7" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(240, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n21c6")
+script = ExtResource("2_tgd4s")
+
+[node name="Slot8" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(240, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n21c6")
+script = ExtResource("2_tgd4s")
+
+[node name="Slot9" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(240, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n21c6")
+script = ExtResource("2_tgd4s")
+
+[node name="Slot10" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(240, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n21c6")
+script = ExtResource("2_tgd4s")
+
+[node name="Slot11" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(240, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n21c6")
+script = ExtResource("2_tgd4s")
+
+[node name="Slot12" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(240, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n21c6")
+script = ExtResource("2_tgd4s")
+
+[node name="Slot13" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(240, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n21c6")
+script = ExtResource("2_tgd4s")
+
+[node name="Slot14" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(240, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n21c6")
+script = ExtResource("2_tgd4s")
+
+[node name="Slot15" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(240, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n21c6")
+script = ExtResource("2_tgd4s")
