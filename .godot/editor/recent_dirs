@@ -1,10 +1,11 @@
+res://src/Globals
+res://src/Items
 res://src/vInventary
 res://src/Items/Weapons/gun
 res://src/Inventary
 res://src/Items/
 res://src
 res://assets/fonts
-res://src/Globals
 /home/hugo/Descargas/godot/godot-hys/src/Characters/
 res://src/UserInterface/InventoryUi
 res://src/UserInterface

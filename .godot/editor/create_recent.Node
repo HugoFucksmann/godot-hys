@@ -1,5 +1,10 @@
-Control
+Marker2D
+Sprite2D
 Node
+Timer
+CollisionShape2D
+Area2D
+Control
 TextureRect
 ColorRect
 Panel
@@ -7,8 +12,3 @@ GridContainer
 Label
 Button
 Tree
-TextureButton
-Node2D
-VBoxContainer
-PanelContainer
-HBoxContainer

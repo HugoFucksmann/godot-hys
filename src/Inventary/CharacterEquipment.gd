@@ -29,9 +29,10 @@ var base_stats = {
 }
 
 func _ready():
-	for slot in equipment_slots.values():
+	for slot_name in equipment_slots:
+		var slot = equipment_slots[slot_name]
 		if slot:
-			slot.connect("gui_input", _on_slot_gui_input.bind(slot))
+			slot.gui_input.connect(_on_slot_gui_input.bind(slot_name))
 
 func equip_item(item: GlobalItem) -> bool:
 	var item_type_string = GlobalItem.ItemType.keys()[item.item_type].to_lower()
@@ -57,16 +58,16 @@ func unequip_item(slot: String) -> GlobalItem:
 
 func update_stats():
 	var total_stats = base_stats.duplicate()
-	for item in equipment.values():
+	for slot in equipment:
+		var item = equipment[slot]
 		if item:
 			for stat in item.stats:
 				if stat in total_stats:
 					total_stats[stat] += item.stats[stat]
 	emit_signal("stats_updated", total_stats)
 
-func _on_slot_gui_input(event: InputEvent, slot: TextureRect):
+func _on_slot_gui_input(event: InputEvent, slot_name: String):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var slot_name = equipment_slots.find_key(slot)
 		if equipment[slot_name]:
 			var unequipped_item = unequip_item(slot_name)
 			if unequipped_item:

@@ -35,13 +35,13 @@ func _on_inventory_slot_clicked(slot: InventorySlot):
 	if slot.item:
 		if character_equipment.equip_item(slot.item):
 			GlobalState.remove_item_from_inventory(slot.item)
-			_update_inventory_ui()
+		_update_inventory_ui()
 
 func _on_item_equipped(item: GlobalItem, slot: String):
 	_update_inventory_ui()
 
 func _on_item_unequipped(item: GlobalItem, slot: String):
-	GlobalState.add_item_to_inventory(item)
+	#GlobalState.add_item_to_inventory(item)
 	_update_inventory_ui()
 
 func _on_stats_updated(new_stats: Dictionary):
