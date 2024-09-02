@@ -10,3 +10,4 @@ res://src/Items/Weapons/gun/gun.gd
 res://src/Inventary/InventoryManager.gd
 res://src/Characters/Enemys/enemy.gd
 res://src/Characters/Enemys/Mob/mob.gd
+res://src/Characters/Players/globalPlayer.gd

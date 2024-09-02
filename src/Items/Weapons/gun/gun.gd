@@ -12,15 +12,12 @@ func _init():
 		"damage": 1,
 		"attack_speed": 200.0,
 		"distance_damage": 100,
-	
+
 	})
-	
-	# Agregar las estadísticas del arma a las estadísticas globales
 	add_stats(stats)
 
 func shoot():
 	shoot_simple()
 
-# Función para agregar las estadísticas del arma a las estadísticas globales
 func add_stats(stats: Dictionary):
 	GlobalState.add_stats(stats)

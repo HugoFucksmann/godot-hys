@@ -2,24 +2,30 @@ extends CharacterBody2D
 
 signal health_depleted
 
-@export var max_health := 100.0
-@export var speed := 600.0
+@onready var global_state = get_node("/root/GlobalState")
 
 var health: float
+var can_shoot: bool = true
+var bullet_scene = preload("res://src/Items/Weapons/gun/bullet.tscn")  # Asegúrate de que esta ruta sea correcta
 
 func _ready():
-	health = max_health
-	%ProgressBar.max_value = max_health
+	update_stats()
+	global_state.connect("stats_updated", update_stats)
+
+func update_stats():
+	health = global_state.get_stat("health")
+	%ProgressBar.max_value = global_state.get_stat("max_health")
 	%ProgressBar.value = health
 
 func _physics_process(delta):
 	move_character()
 	animate_character()
 	check_damage(delta)
+	
 
 func move_character():
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = direction * speed
+	velocity = direction * global_state.get_stat("speed")
 	move_and_slide()
 
 func animate_character():
@@ -38,8 +44,16 @@ func take_damage(amount):
 	health -= amount
 	%ProgressBar.value = health
 	if health <= 0.0:
-		GlobalState.deaths += 1
+		global_state.deaths += 1
 		health_depleted.emit()
+
+
+func shoot():
+	var bullet = bullet_scene.instantiate()
+	bullet.global_position = global_position
+	bullet.rotation = global_position.direction_to(get_global_mouse_position()).angle()
+	get_parent().add_child(bullet)
+	
 
 # Estos métodos serán sobrescritos en las clases hijas
 func play_walk_animation():
