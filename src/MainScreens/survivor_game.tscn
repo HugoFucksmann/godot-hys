@@ -35,7 +35,7 @@ curve = SubResource("Curve2D_oj1yw")
 [node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
 unique_name_in_owner = true
 position = Vector2(-448.483, -381.306)
-rotation = 0.00384837
+rotation = 0.00384784
 
 [node name="PinTree" parent="." instance=ExtResource("2_ter85")]
 position = Vector2(726, 237)

@@ -9,6 +9,7 @@ class_name GlobalEnemy
 var player
 
 func _ready():
+	add_to_group("enemies")
 	player = get_node("/root/Game/Player")  # Ajusta esta ruta según tu árbol de escena
 	initialize()  # Método para inicializar características específicas del enemigo
 
@@ -25,6 +26,7 @@ func chase_player(delta):
 func take_damage(amount: int):
 	health -= amount
 	play_hurt_animation()  # Método para reproducir la animación de daño
+	print("vida sacada> ", health)
 	if health <= 0:
 		die()
 

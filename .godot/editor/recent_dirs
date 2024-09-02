@@ -1,7 +1,12 @@
+res://src/Items/Armors/redDragon
+res://src/Items/Weapons/gun
+res://src/Items/Weapons/rango
+res://src/Items/Weapons/multipleShootWeapon
+res://src/Items/Weapons/radiusWeapon
+res://src/Items/Weapons/angleWeapon
 res://src/Globals
 res://src/Items
 res://src/vInventary
-res://src/Items/Weapons/gun
 res://src/Inventary
 res://src/Items/
 res://src

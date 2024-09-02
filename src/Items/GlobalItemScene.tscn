@@ -1,11 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmye3f1etkj2d"]
+[gd_scene load_steps=3 format=3 uid="uid://cmye3f1etkj2d"]
 
 [ext_resource type="Script" path="res://src/Globals/globalItem.gd" id="1_fu4fd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mxdoa"]
 
 [node name="GlobalItemScene" type="Area2D"]
 script = ExtResource("1_fu4fd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mxdoa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 

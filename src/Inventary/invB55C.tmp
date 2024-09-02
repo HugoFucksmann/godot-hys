@@ -1,0 +1,90 @@
+[gd_scene load_steps=5 format=3 uid="uid://b733lryoufc8u"]
+
+[ext_resource type="Script" path="res://src/Inventary/InventoryManager.gd" id="1_hhl7g"]
+[ext_resource type="Script" path="res://src/Inventary/CharacterEquipment.gd" id="2_lhp04"]
+[ext_resource type="PackedScene" uid="uid://dnfk52tj6whhr" path="res://src/Inventary/InventorySlot.tscn" id="3_knld6"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_f3ci2"]
+
+[node name="InventoryManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hhl7g")
+
+[node name="CharacterEquipment" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 1078.0
+offset_bottom = 816.0
+script = ExtResource("2_lhp04")
+
+[node name="WeaponSlot" type="TextureRect" parent="CharacterEquipment"]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 60.0
+offset_right = 195.0
+offset_bottom = 176.0
+texture = SubResource("CanvasTexture_f3ci2")
+
+[node name="AccessorySlot" type="TextureRect" parent="CharacterEquipment"]
+layout_mode = 0
+offset_left = 842.0
+offset_top = 496.0
+offset_right = 958.0
+offset_bottom = 612.0
+texture = SubResource("CanvasTexture_f3ci2")
+
+[node name="ArmorSlot" type="TextureRect" parent="CharacterEquipment"]
+layout_mode = 0
+offset_left = 838.0
+offset_top = 258.0
+offset_right = 954.0
+offset_bottom = 374.0
+texture = SubResource("CanvasTexture_f3ci2")
+
+[node name="HelmetSlot" type="TextureRect" parent="CharacterEquipment"]
+layout_mode = 0
+offset_left = 833.0
+offset_top = 69.0
+offset_right = 949.0
+offset_bottom = 185.0
+texture = SubResource("CanvasTexture_f3ci2")
+
+[node name="BootsSlot" type="TextureRect" parent="CharacterEquipment"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 473.0
+offset_right = 204.0
+offset_bottom = 589.0
+texture = SubResource("CanvasTexture_f3ci2")
+
+[node name="GlovesSlot" type="TextureRect" parent="CharacterEquipment"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 249.0
+offset_right = 204.0
+offset_bottom = 365.0
+texture = SubResource("CanvasTexture_f3ci2")
+
+[node name="InventoryPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 876.0
+offset_right = 1074.0
+offset_bottom = 1920.0
+
+[node name="SlotsContainer" type="GridContainer" parent="InventoryPanel"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 61.0
+offset_right = 1018.0
+offset_bottom = 981.0
+theme_override_constants/h_separation = 213
+theme_override_constants/v_separation = 200
+columns = 5
+
+[node name="InventorySlot" parent="InventoryPanel/SlotsContainer" instance=ExtResource("3_knld6")]
+layout_mode = 2

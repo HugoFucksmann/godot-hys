@@ -1,21 +1,29 @@
+# globalArmor.gd
 extends GlobalItem
 class_name GlobalArmor
 
-@export var defense_boost: float = 1.0
+@onready var armor_sprite = $ArmorSprite
 
 func _ready():
 	super._ready()
+	update_sprite()
 
-func use(character):
-	# Implementar lógica de uso de la armadura si es necesario
+func update_sprite():
+	if armor_sprite and item_type == ItemType.ARMADURA:
+		armor_sprite.texture = icon
+
+func equip_armor():
+	# Aquí puedes añadir cualquier lógica adicional que ocurra al equipar la armadura
 	pass
 
-# Sobrescribir equip para aplicar la defensa al personaje
-func equip(character):
-	super.equip(character)
-	character.apply_defense_boost(defense_boost)
+func unequip_armor():
+	# Aquí puedes añadir cualquier lógica adicional que ocurra al desequipar la armadura
+	pass
 
-# Sobrescribir unequip para quitar la defensa al personaje
-func unequip(character):
-	super.unequip(character)
-	character.remove_defense_boost(defense_boost)
+func apply_defense():
+	# Aplica la defensa de la armadura al personaje
+	var defense = get_stat("defense")
+	if defense > 0:
+		var player = get_parent() # Suponiendo que la armadura se equipa en el player
+		if player.has_method("increase_defense"):
+			player.increase_defense(defense)
