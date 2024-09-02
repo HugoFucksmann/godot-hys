@@ -15,10 +15,12 @@ func _ready():
 
 func _update_inventory_ui():
 	print("Updating inventory UI")  # Debug
+	# Limpiar los slots existentes en el contenedor
 	for child in inventory_slots_container.get_children():
 		inventory_slots_container.remove_child(child)
 		child.queue_free()
 	
+	# Añadir los ítems actuales del inventario a la UI
 	var inventory = GlobalState.get_inventory()
 	for item in inventory:
 		var slot = inventory_slot_scene.instantiate()
@@ -26,14 +28,6 @@ func _update_inventory_ui():
 			slot.connect("slot_clicked", _on_inventory_slot_clicked)
 			inventory_slots_container.add_child(slot)
 			slot.set_item(item)
-	
-	var empty_slots = GlobalState.max_inventory_slots - inventory.size()
-	for i in range(empty_slots):
-		var slot = inventory_slot_scene.instantiate()
-		if slot:
-			slot.connect("slot_clicked", _on_inventory_slot_clicked)
-			inventory_slots_container.add_child(slot)
-			slot.set_item(null)
 
 	print("Inventory UI updated, total slots: ", inventory_slots_container.get_child_count())  # Debug
 
@@ -54,7 +48,7 @@ func _on_item_equipped(item: GlobalItem, slot: String):
 
 func _on_item_unequipped(item: GlobalItem, slot: String):
 	print("Item unequipped: ", item.name, " from slot: ", slot)  # Debug
-	# Evitamos agregar el item al inventario aquí, ya que se manejará en GlobalState
+	# Evitamos agregar el ítem al inventario aquí, ya que se manejará en GlobalState
 	_update_inventory_ui()
 
 func _on_stats_updated(new_stats: Dictionary):

@@ -7,7 +7,7 @@ enum ItemType {ARMA, ARMADURA, BOTAS, CASCO, GUANTES, ACCESORIO}
 @export var item_type: ItemType
 @export var bullet_scene: PackedScene
 @export var stats: Dictionary = {
-	"damage": 0.0,
+	"damage": 0,
 	"attack_speed": 0.0,
 	"crit_damage": 0.0,
 	"crit_chance": 0.0,

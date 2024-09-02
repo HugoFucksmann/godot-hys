@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://rvxro1avjhh3"]
 
-[ext_resource type="Script" path="res://src/Items/Weapons/gun/bullet.gd" id="1_xqf04"]
+[ext_resource type="Script" path="res://src/Items/Weapons/gun/Bullet.gd" id="1_xipjf"]
 [ext_resource type="Texture2D" uid="uid://dftkbqwsfd68r" path="res://src/Items/Weapons/gun/asset/projectile.png" id="2_qmiml"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_61jnq"]
@@ -11,7 +11,7 @@ top_level = true
 rotation = 0.531652
 collision_layer = 0
 collision_mask = 3
-script = ExtResource("1_xqf04")
+script = ExtResource("1_xipjf")
 
 [node name="Projectile" type="Sprite2D" parent="."]
 position = Vector2(-10, -1)

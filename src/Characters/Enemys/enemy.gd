@@ -3,7 +3,6 @@ extends CharacterBody2D
 class_name GlobalEnemy
 
 @export var health: int
-@export var damage: int
 @export var score: int
 
 var player
@@ -26,7 +25,7 @@ func chase_player(delta):
 func take_damage(amount: int):
 	health -= amount
 	play_hurt_animation()  # Método para reproducir la animación de daño
-	print("vida sacada> ", health)
+	print("Enemigo recibió daño. Vida restante: ", health)
 	if health <= 0:
 		die()
 
@@ -36,13 +35,17 @@ func die():
 	queue_free()
 
 func play_hurt_animation():
-	# Este método se puede sobreescribir en los enemigos específicos para reproducir una animación al recibir daño.
+	# Este método se sobreescribe en los enemigos específicos para reproducir una animación al recibir daño.
 	pass
 
 func play_death_effects():
-	# Este método se puede sobreescribir en los enemigos específicos para reproducir efectos al morir.
+	# Este método se sobreescribe en los enemigos específicos para reproducir efectos al morir.
 	pass
 
 func initialize():
 	# Método que los enemigos específicos pueden usar para configuraciones adicionales en _ready.
+	pass
+
+func attack_player():
+	# Este método será implementado en los enemigos específicos
 	pass
