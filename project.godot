@@ -8,6 +8,8 @@
 
 config_version=5
 
+"ï»¿config_version"=5
+
 [Asset_Placer]
 
 Settings/Preview_Perspective=2
@@ -78,11 +80,20 @@ config/name="Your First 2D Game With Godot 4: START (GDQuest)"
 run/main_scene="res://src/MainScreens/main_screen.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.png"
+package_name="com.arachnidassault.mygame"
 
 [autoload]
 
 GlobalState="*res://src/Globals/globalState.gd"
 StatsManager="*res://src/Globals/statsManager.gd"
+DataManager="*res://src/DataManager/dataManager.gd"
+GodotPlayGameServices="*res://addons/GodotPlayGameServices/autoloads/godot_play_game_services.gd"
+SignInClient="*res://addons/GodotPlayGameServices/autoloads/sign_in_client.gd"
+PlayersClient="*res://addons/GodotPlayGameServices/autoloads/players_client.gd"
+AchievementsClient="*res://addons/GodotPlayGameServices/autoloads/achievements_client.gd"
+LeaderboardsClient="*res://addons/GodotPlayGameServices/autoloads/leaderboards_client.gd"
+SnapshotsClient="*res://addons/GodotPlayGameServices/autoloads/snapshots_client.gd"
+EventsClient="*res://addons/GodotPlayGameServices/autoloads/events_client.gd"
 
 [display]
 
@@ -97,7 +108,7 @@ project/assembly_name="Getting started with Godot 4"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/colorpicker_presets/plugin.cfg")
+enabled=PackedStringArray("res://addons/GodotPlayGameServices/plugin.cfg", "res://addons/colorpicker_presets/plugin.cfg")
 
 [input]
 
@@ -135,3 +146,4 @@ shoot={
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

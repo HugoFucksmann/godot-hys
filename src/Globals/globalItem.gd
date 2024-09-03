@@ -22,7 +22,6 @@ enum ItemType {ARMA, ARMADURA, BOTAS, CASCO, GUANTES, ACCESORIO}
 
 @onready var collision_shape = $CollisionShape2D
 
-
 func _init(p_name: String = "", p_icon: Texture = null, p_item_type: ItemType = ItemType.ARMA, p_bullet_scene: PackedScene = null):
 	name = p_name
 	icon = p_icon
@@ -39,7 +38,7 @@ func set_stats(p_stats: Dictionary):
 	update_collision_shape()
 
 func get_stat(stat_name: String) -> float:
-	return StatsManager.get_stat(stat_name)
+	return stats.get(stat_name, 0.0)
 
 func update_collision_shape():
 	if collision_shape:

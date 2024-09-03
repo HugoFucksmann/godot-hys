@@ -1,11 +1,10 @@
 extends Node
 
-signal stats_updated
+signal stats_updated(new_stats: Dictionary)
 
 var total_stats = {}
 
 func _ready():
-	print("StatsManager initialized")  # Debug print
 	reset_total_stats()
 
 func reset_total_stats():
@@ -26,23 +25,38 @@ func reset_total_stats():
 	}
 	emit_signal("stats_updated", total_stats)
 
-func update_total_stats(all_stats: Array):
+func update_total_stats():
 	reset_total_stats()
-	for stats in all_stats:
-		add_stats(stats)
+	if GlobalState.current_character:
+		if typeof(GlobalState.current_character) == TYPE_OBJECT:
+			add_stats(GlobalState.current_character.stats)
+		else:
+			print("Warning: current_character is not a valid object")
+	
+	for slot in GlobalState.equipped_items:
+		var item = GlobalState.equipped_items[slot]
+		if item:
+			if typeof(item) == TYPE_OBJECT:
+				if item.has_method("get_stats"):
+					add_stats(item.get_stats())
+				elif "stats" in item:
+					add_stats(item.stats)
+				else:
+					print("Warning: Item in slot ", slot, " doesn't have stats")
+			else:
+				print("Warning: Item in slot ", slot, " is not a valid object")
+	
+	emit_signal("stats_updated", total_stats)
 
 func get_stat(stat_name: String) -> float:
 	return total_stats.get(stat_name, 0.0)
 
 func add_stats(stats: Dictionary):
 	if stats == null:
-		print("Warning: Attempted to add null stats")
 		return
 	for stat in stats:
 		if stat in total_stats:
 			total_stats[stat] += stats[stat]
-	emit_signal("stats_updated", total_stats)
 
-# Static function to check if StatsManager is available
 static func is_available() -> bool:
 	return Engine.has_singleton("StatsManager")

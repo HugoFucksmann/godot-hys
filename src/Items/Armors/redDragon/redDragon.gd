@@ -1,4 +1,3 @@
-# dragonRojo.gd
 extends GlobalArmor
 
 func _init():
