@@ -10,11 +10,11 @@ var bullet_scene = preload("res://src/Items/Weapons/gun/bullet.tscn")  # Asegúr
 
 func _ready():
 	update_stats()
-	global_state.connect("stats_updated", update_stats)
+	
 
 func update_stats():
-	health = global_state.get_stat("health")
-	%ProgressBar.max_value = global_state.get_stat("max_health")
+	health = StatsManager.get_stat("health")
+	%ProgressBar.max_value = StatsManager.get_stat("max_health")
 	%ProgressBar.value = health
 
 func _physics_process(delta):
@@ -25,7 +25,7 @@ func _physics_process(delta):
 
 func move_character():
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = direction * global_state.get_stat("speed")
+	velocity = direction * StatsManager.get_stat("speed")
 	move_and_slide()
 
 func animate_character():

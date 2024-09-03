@@ -1,14 +1,11 @@
 extends Node
 
 signal inventory_updated
-signal stats_updated
 
 @export var score: int
 @export var deaths: int
 
 var player_inventory = []  # Almacena todos los ítems sin límite
-var total_stats = {}
-
 var current_character = null
 var equipped_items = {
 	"arma": null,
@@ -18,10 +15,12 @@ var equipped_items = {
 	"casco": null,
 	"accesorio": null
 }
-
+var stats_manager: Node
 func _ready():
+	stats_manager = get_node("/root/StatsManager")
+
 	add_initial_items()
-	reset_total_stats()
+	update_stats_manager()
 
 func add_initial_items():
 	var initial_gun = load("res://src/Items/Weapons/gun/area_gun.tscn").instantiate()
@@ -30,56 +29,24 @@ func add_initial_items():
 	add_item_to_inventory(initial_gun.duplicate())
 	add_item_to_inventory(initial_armor)
 
-func reset_total_stats():
-	total_stats = {
-		"health": 100,
-		"max_health": 100,
-		"damage": 11,
-		"speed": 600,
-		"attack_speed": 1.0,
-		"crit_damage": 2.0,
-		"crit_chance": 10.0,
-		"defense": 5,
-		"pickup_radius": 50,
-		"distance_damage": 100.0,
-		"melee_damage": 0.0,
-		"magic_damage": 0.0,
-		"area_damage_radius": 0.0
-	}
-
-func update_total_stats():
-	reset_total_stats()
-
-	if current_character:
-		add_stats(current_character.stats)
-
-	for item in equipped_items.values():
-		if item:
-			add_stats(item.stats)
-
-	emit_signal("stats_updated", total_stats)
-
 func set_current_character(character):
 	current_character = character
-	update_total_stats()
+	update_stats_manager()
 
 func equip_item(item, slot):
 	if slot in equipped_items:
 		if equipped_items[slot]:
 			unequip_item(slot)
 		equipped_items[slot] = item
-		update_total_stats()
+		update_stats_manager()
 		return true
 	return false
-
-func get_stat(stat_name: String) -> float:
-	return total_stats.get(stat_name, 0.0)
 
 func unequip_item(slot):
 	if slot in equipped_items and equipped_items[slot]:
 		var item = equipped_items[slot]
 		equipped_items[slot] = null
-		update_total_stats()
+		update_stats_manager()
 		return item
 	return null
 
@@ -103,8 +70,14 @@ func handle_unequipped_item(item):
 	if not add_item_to_inventory(item):
 		print("Failed to add unequipped item to inventory: ", item.name)
 
-func add_stats(stats: Dictionary):
-	for stat in stats:
-		if stat in total_stats:
-			total_stats[stat] += stats[stat]
-	emit_signal("stats_updated", total_stats)
+func update_stats_manager():
+	if not stats_manager:
+		push_error("StatsManager not available for update")
+		return
+	var all_stats = []
+	if current_character:
+		all_stats.append(current_character.stats)
+	for item in equipped_items.values():
+		if item:
+			all_stats.append(item.stats)
+	stats_manager.update_total_stats(all_stats)
