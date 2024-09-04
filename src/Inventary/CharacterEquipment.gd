@@ -12,21 +12,20 @@ signal item_unequipped(item: GlobalItem, slot: String)
 	"accesorio": $AccessorySlot
 }
 
-var default_textures: Dictionary = {
-	"arma": preload("res://assets/inventary/slot.png"),
-	"guantes": preload("res://assets/inventary/slot.png"),
-	"botas": preload("res://assets/inventary/slot.png"),
-	"armadura": preload("res://assets/inventary/slot.png"),
-	"casco": preload("res://assets/inventary/slot.png"),
-	"accesorio": preload("res://assets/inventary/slot.png")
-}
+const DEFAULT_SLOT_TEXTURE = preload("res://assets/inventary/slot.png")
+@onready var default_textures: Dictionary = {}
 
 func _ready():
+	for slot in equipment_slots.keys():
+		default_textures[slot] = DEFAULT_SLOT_TEXTURE
 	for slot_name in equipment_slots:
 		var slot = equipment_slots[slot_name]
 		if slot:
 			slot.gui_input.connect(_on_slot_gui_input.bind(slot_name))
 			update_slot_texture(slot_name, null)
+	
+	# Conectar la señal de GlobalState para actualizar la UI cuando cambian los items equipados
+	GlobalState.connect("equipped_items_updated", _on_equipped_items_updated)
 
 func equip_item(item: GlobalItem) -> bool:
 	var item_type_string: String = GlobalItem.ItemType.keys()[item.item_type].to_lower()
@@ -65,4 +64,14 @@ func update_slot_texture(slot: String, texture: Texture2D):
 func _on_slot_gui_input(event: InputEvent, slot_name: String):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if GlobalState.equipped_items[slot_name]:
-			unequip_item(slot_name)
+			var unequipped_item = unequip_item(slot_name)
+			if unequipped_item:
+				get_parent().handle_unequipped_item(unequipped_item)
+
+func _on_equipped_items_updated():
+	for slot in GlobalState.equipped_items:
+		var item = GlobalState.equipped_items[slot]
+		if item and item is GlobalItem:  # Verificar que el item sea válido y de tipo GlobalItem
+			update_slot_texture(slot, item.icon)
+		else:
+			update_slot_texture(slot, null)

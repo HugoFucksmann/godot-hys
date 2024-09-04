@@ -45,3 +45,19 @@ func update_collision_shape():
 		var shape = CircleShape2D.new()
 		shape.radius = get_stat("pickup_radius")
 		collision_shape.shape = shape
+
+func get_save_data() -> Dictionary:
+	return {
+		"name": name,
+		"icon_path": icon.resource_path if icon else "",
+		"item_type": item_type,
+		"bullet_scene_path": bullet_scene.resource_path if bullet_scene else "",
+		"stats": stats
+	}
+
+func load_save_data(data: Dictionary):
+	name = data.get("name", "")
+	icon = load(data.get("icon_path", "")) if data.get("icon_path") else null
+	item_type = data.get("item_type", ItemType.ARMA)
+	bullet_scene = load(data.get("bullet_scene_path", "")) if data.get("bullet_scene_path") else null
+	set_stats(data.get("stats", {}))
