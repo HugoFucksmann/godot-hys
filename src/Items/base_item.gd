@@ -1,9 +1,9 @@
-# GlobalItem.gd
-extends Area2D
-class_name GlobalItem
+extends Resource
+class_name BaseItem
 
 enum ItemType {ARMA, ARMADURA, BOTAS, CASCO, GUANTES, ACCESORIO}
 
+@export var name: String = ""
 @export var icon: Texture
 @export var item_type: ItemType
 @export var bullet_scene: PackedScene
@@ -21,26 +21,14 @@ enum ItemType {ARMA, ARMADURA, BOTAS, CASCO, GUANTES, ACCESORIO}
 	"area_damage_radius": 0.0
 }
 
-@onready var collision_shape = $CollisionShape2D
-
-func _init(name: String = "", p_icon: Texture = null, p_item_type: ItemType = ItemType.ARMA, p_bullet_scene: PackedScene = null):
-	self.name = name
+func _init(p_name: String = "", p_icon: Texture = null, p_item_type: ItemType = ItemType.ARMA, p_bullet_scene: PackedScene = null):
+	name = p_name
 	icon = p_icon
 	item_type = p_item_type
 	bullet_scene = p_bullet_scene
 
-func _ready():
-	update_collision_shape()
-
 func set_stats(p_stats: Dictionary):
 	stats = p_stats
-	update_collision_shape()
 
 func get_stat(stat_name: String) -> float:
 	return stats.get(stat_name, 0.0)
-
-func update_collision_shape():
-	if collision_shape:
-		var shape = CircleShape2D.new()
-		shape.radius = get_stat("pickup_radius")
-		collision_shape.shape = shape

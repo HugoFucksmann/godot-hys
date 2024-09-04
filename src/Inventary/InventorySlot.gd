@@ -3,12 +3,12 @@ extends Control
 
 signal slot_clicked(slot: InventorySlot)
 
-var item: GlobalItem = null
+var item: BaseItem = null
 
 @onready var background = $ColorRect
 @onready var item_texture = $TextureRect
 
-func set_item(_item: GlobalItem):
+func set_item(_item: BaseItem):
 	item = _item
 	if item:
 		item_texture.texture = item.icon

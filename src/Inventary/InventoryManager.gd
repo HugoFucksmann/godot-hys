@@ -1,8 +1,8 @@
 extends Node
 
 signal inventory_updated
-signal item_equipped(item: GlobalItem, slot: String)
-signal item_unequipped(item: GlobalItem, slot: String)
+signal item_equipped(item: BaseItem, slot: String)
+signal item_unequipped(item: BaseItem, slot: String)
 
 var player_inventory = []
 var inventory_slot_scene = preload("res://src/Inventary/InventorySlot.tscn")
@@ -21,18 +21,20 @@ func _on_data_loaded():
 	_update_inventory_ui()
 
 func _load_default_items():
-	var gun = load("res://src/Items/Weapons/gun/gun.gd").new()
-	var red_dragon = load("res://src/Items/Armors/redDragon/redDragon.gd").new()
+	var gun = ItemManager.create_item_by_name("Gun")
+	var gun2 = ItemManager.create_item_by_name("Gun")
+	var armor = ItemManager.create_item_by_name("Basic Armor")
 	add_item_to_inventory(gun)
-	add_item_to_inventory(red_dragon)
+	add_item_to_inventory(gun)
+	add_item_to_inventory(armor)
 
-func add_item_to_inventory(item):
+func add_item_to_inventory(item: BaseItem):
 	player_inventory.append(item)
 	DataManager.update_inventory(player_inventory)
 	emit_signal("inventory_updated")
 	_update_inventory_ui()
 
-func remove_item_from_inventory(item):
+func remove_item_from_inventory(item: BaseItem):
 	var index = player_inventory.find(item)
 	if index != -1:
 		player_inventory.remove_at(index)
@@ -62,16 +64,16 @@ func _on_inventory_slot_clicked(slot: InventorySlot):
 		if character_equipment.equip_item(slot.item):
 			remove_item_from_inventory(slot.item)
 
-func _on_item_equipped(item: GlobalItem, slot: String):
+func _on_item_equipped(item: BaseItem, slot: String):
 	GlobalState.equipped_items[slot] = item
 	GlobalState.update_equipped_items()
 	StatsManager.update_total_stats()
 
-func _on_item_unequipped(item: GlobalItem, slot: String):
+func _on_item_unequipped(item: BaseItem, slot: String):
 	GlobalState.equipped_items[slot] = null
 	GlobalState.update_equipped_items()
 	add_item_to_inventory(item)
 	StatsManager.update_total_stats()
 
-func handle_unequipped_item(item):
+func handle_unequipped_item(item: BaseItem):
 	add_item_to_inventory(item)

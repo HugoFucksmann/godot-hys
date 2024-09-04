@@ -1,7 +1,7 @@
 extends Node
 
-signal item_equipped(item: GlobalItem, slot: String)
-signal item_unequipped(item: GlobalItem, slot: String)
+signal item_equipped(item: BaseItem, slot: String)
+signal item_unequipped(item: BaseItem, slot: String)
 
 @onready var equipment_slots: Dictionary = {
 	"arma": $WeaponSlot,
@@ -28,8 +28,8 @@ func _ready():
 			slot.gui_input.connect(_on_slot_gui_input.bind(slot_name))
 			update_slot_texture(slot_name, null)
 
-func equip_item(item: GlobalItem) -> bool:
-	var item_type_string: String = GlobalItem.ItemType.keys()[item.item_type].to_lower()
+func equip_item(item: BaseItem) -> bool:
+	var item_type_string: String = BaseItem.ItemType.keys()[item.item_type].to_lower()
 	if item_type_string in GlobalState.equipped_items:
 		if GlobalState.equipped_items[item_type_string]:
 			unequip_item(item_type_string)
@@ -40,7 +40,7 @@ func equip_item(item: GlobalItem) -> bool:
 		return true
 	return false
 
-func unequip_item(slot: String) -> GlobalItem:
+func unequip_item(slot: String) -> BaseItem:
 	if slot in GlobalState.equipped_items and GlobalState.equipped_items[slot]:
 		var item = GlobalState.equipped_items[slot]
 		GlobalState.equipped_items[slot] = null

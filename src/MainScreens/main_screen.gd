@@ -5,6 +5,7 @@ func _ready():
 	if not DataManager.user_data["user_id"]:
 		DataManager.load_local_data()
 	update_ui()
+	
 func ensure_game_state():
 	get_tree().paused = false
 

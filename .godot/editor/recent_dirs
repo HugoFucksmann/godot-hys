@@ -1,3 +1,4 @@
+res://src/Items
 /home/hugo/Descargas/godot
 res://src/DataManager
 res://src/Globals
@@ -7,7 +8,6 @@ res://src/Items/Weapons/rango
 res://src/Items/Weapons/multipleShootWeapon
 res://src/Items/Weapons/radiusWeapon
 res://src/Items/Weapons/angleWeapon
-res://src/Items
 res://src/Inventary
 res://src/Items/
 res://src
