@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bci26n3kywx5i"]
+[gd_scene load_steps=6 format=3 uid="uid://bci26n3kywx5i"]
 
 [ext_resource type="PackedScene" uid="uid://cu0m2t0cq28c6" path="res://src/Characters/Players/Player1/player.tscn" id="1_3vmhj"]
 [ext_resource type="Script" path="res://src/MainScreens/survivor_game.gd" id="1_iddai"]
 [ext_resource type="PackedScene" uid="uid://bwey8fjrcr8qy" path="res://src/maps/trees/pin_tree.tscn" id="2_ter85"]
-[ext_resource type="PackedScene" uid="uid://r21si714ymj1" path="res://src/Characters/Enemys/Mob/mob.tscn" id="3_ofjwr"]
 [ext_resource type="PackedScene" uid="uid://bqxqinraxg203" path="res://src/MainScreens/game_over.tscn" id="4_fmg0v"]
 
 [sub_resource type="Curve2D" id="Curve2D_oj1yw"]
@@ -40,10 +39,6 @@ rotation = 0.00384784
 [node name="PinTree" parent="." instance=ExtResource("2_ter85")]
 position = Vector2(726, 237)
 
-[node name="Mob" parent="." instance=ExtResource("3_ofjwr")]
-position = Vector2(919, 470)
-score = 0
-
 [node name="PinTree2" parent="." instance=ExtResource("2_ter85")]
 position = Vector2(176, 948)
 
@@ -57,6 +52,8 @@ autostart = true
 [node name="GameOver" parent="." instance=ExtResource("4_fmg0v")]
 unique_name_in_owner = true
 visible = false
+
+[node name="Node" type="Node" parent="."]
 
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

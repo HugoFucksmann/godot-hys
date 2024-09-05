@@ -15,7 +15,7 @@
   "armadura": [
 	{
 	  "name": "Basic Armor",
-	  "icon": "res://src/Items/Armors/redDragon/asset/redDragonArmor.png",
+	  "icon": "res://src/Items/Armors/redDragon/assets/redDragonArmor.png",
 	  "item_type": 1,
 	  "bullet_scene": null,
 	  "stats": {

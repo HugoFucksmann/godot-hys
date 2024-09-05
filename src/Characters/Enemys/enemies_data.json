@@ -1,0 +1,28 @@
+{
+  "basic_enemy": {
+	"stats": {
+	  "health": 100,
+	  "damage": 10,
+	  "defense": 5,
+	  "dodge_chance": 5.0,
+	  "speed": 300.0
+	},
+	"score": 10,
+	"hurt_animation": "hurt",
+	"death_animation": "death",
+	"sprite_texture": "res://src/Characters/Enemys/Mob/asset/slime_body.png"
+  },
+  "fast_enemy": {
+	"stats": {
+	  "health": 75,
+	  "damage": 8,
+	  "defense": 3,
+	  "dodge_chance": 10.0,
+	  "speed": 450.0
+	},
+	"score": 15,
+	"hurt_animation": "fast_hurt",
+	"death_animation": "fast_death",
+	"sprite_texture": "res://src/Characters/Enemys/Mob/asset/slime_body_hurt.png"
+  }
+}

@@ -11,26 +11,36 @@ var inventory_slot_scene = preload("res://src/Inventary/InventorySlot.tscn")
 @onready var inventory_slots_container = $InventoryPanel/SlotsContainer
 
 func _ready():
-	DataManager.connect("data_loaded", _on_data_loaded)
 	character_equipment.connect("item_equipped", _on_item_equipped)
 	character_equipment.connect("item_unequipped", _on_item_unequipped)
-	_load_default_items()
-
-func _on_data_loaded():
-	player_inventory = DataManager.user_data.get("inventory", [])
+	_load_inventory()
+	character_equipment.load_equipped_items()
+	
+func _load_inventory():
+	# Here you should implement logic to load the inventory from a saved state
+	# For now, we'll just load default items if the inventory is empty
+	if player_inventory.is_empty():
+		_load_default_items()
 	_update_inventory_ui()
 
 func _load_default_items():
 	var gun = ItemManager.create_item_by_name("Gun")
-	var gun2 = ItemManager.create_item_by_name("Gun")
+	var gloves = ItemManager.create_item_by_name("Leather Gloves")
 	var armor = ItemManager.create_item_by_name("Basic Armor")
 	add_item_to_inventory(gun)
-	add_item_to_inventory(gun)
+	add_item_to_inventory(gloves)
 	add_item_to_inventory(armor)
+
+func _load_equipped_items():
+	for slot in GlobalState.equipped_items.keys():
+		var item_data = GlobalState.equipped_items[slot]
+		if item_data:
+			var item = ItemManager.create_item_from_data(item_data)
+			if item:
+				character_equipment.equip_item(item)
 
 func add_item_to_inventory(item: BaseItem):
 	player_inventory.append(item)
-	DataManager.update_inventory(player_inventory)
 	emit_signal("inventory_updated")
 	_update_inventory_ui()
 
@@ -38,7 +48,6 @@ func remove_item_from_inventory(item: BaseItem):
 	var index = player_inventory.find(item)
 	if index != -1:
 		player_inventory.remove_at(index)
-		DataManager.update_inventory(player_inventory)
 		emit_signal("inventory_updated")
 		_update_inventory_ui()
 		return true

@@ -1,0 +1,27 @@
+{
+  "level1": {
+    "duration": 120,
+    "enemies": [
+      {
+        "type": "basic_enemy",
+        "spawn_rate": 2.0,
+        "weight": 1
+      }
+    ]
+  },
+  "level2": {
+    "duration": 120,
+    "enemies": [
+      {
+        "type": "basic_enemy",
+        "spawn_rate": 2.5,
+        "weight": 0.7
+      },
+      {
+        "type": "fast_enemy",
+        "spawn_rate": 5.0,
+        "weight": 0.3
+      }
+    ]
+  }
+}

@@ -27,6 +27,20 @@ func _ready():
 		if slot:
 			slot.gui_input.connect(_on_slot_gui_input.bind(slot_name))
 			update_slot_texture(slot_name, null)
+	
+	load_equipped_items()
+	
+	# Cargar los items equipados desde GlobalState
+	for slot in GlobalState.equipped_items.keys():
+		var item = GlobalState.equipped_items[slot]
+		if item:
+			update_slot_texture(slot, item.icon)
+
+func load_equipped_items():
+	for slot in GlobalState.equipped_items.keys():
+		var item = GlobalState.equipped_items[slot]
+		if item:
+			update_slot_texture(slot, item.icon)
 
 func equip_item(item: BaseItem) -> bool:
 	var item_type_string: String = BaseItem.ItemType.keys()[item.item_type].to_lower()

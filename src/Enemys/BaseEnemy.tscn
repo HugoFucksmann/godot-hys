@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgat0rwhqc77c"]
+
+[ext_resource type="Script" path="res://src/Characters/Enemys/globalEnemy.gd" id="1_spmbo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_12lfm"]
+radius = 59.0085
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_spmbo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_12lfm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

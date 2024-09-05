@@ -89,7 +89,7 @@ offset_right = 1018.0
 offset_bottom = 981.0
 theme_override_constants/h_separation = 213
 theme_override_constants/v_separation = 200
-columns = 5
+columns = 3
 
 [node name="InventorySlot" parent="InventoryPanel/SlotsContainer" instance=ExtResource("3_knld6")]
 layout_mode = 2
