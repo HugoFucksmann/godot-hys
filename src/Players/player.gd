@@ -1,4 +1,6 @@
-extends "res://src/Characters/Players/globalPlayer.gd"
+extends "res://src/Globals/globalPlayer.gd"
+
+
 
 func _ready():
 	super._ready()

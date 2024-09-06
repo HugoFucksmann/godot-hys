@@ -14,6 +14,16 @@ func _ready():
 	setup_enemy_spawn_positions()
 	timer.connect("timeout", _on_timer_timeout)
 	player.connect("health_depleted", _on_player_health_depleted)
+	
+	# Reiniciar las estadísticas del jugador
+	reset_player_stats()
+
+func reset_player_stats():
+	var stats_manager = get_node("/root/StatsManager")
+	stats_manager.reset_total_stats()
+	stats_manager.update_total_stats()
+	player.update_stats()
+	print("Player health reset to: ", stats_manager.current_health)
 
 func setup_enemy_spawn_positions():
 	# Define las posiciones de spawn de enemigos alrededor del área de juego
@@ -59,3 +69,9 @@ func spawn_enemy():
 func _on_player_health_depleted() -> void:
 	%GameOver.visible = true
 	get_tree().paused = true
+
+func restart_game():
+	%GameOver.visible = false
+	get_tree().paused = false
+	reset_player_stats()
+	# Aquí puedes añadir más lógica para reiniciar el juego, como eliminar enemigos, etc.

@@ -4,7 +4,7 @@
 	  "name": "Gun",
 	  "icon": "res://src/Items/Weapons/gun/asset/pistol.png",
 	  "item_type": 0,
-	  "bullet_scene": "res://src/Items/Weapons/gun/bullet.tscn",
+	  "bullet_scene": "res://src/Items/Bullets/bullet.tscn",
 	  "stats": {
 		"damage": 1,
 		"attack_speed": 200.0,

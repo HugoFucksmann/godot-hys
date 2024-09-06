@@ -8,7 +8,7 @@ var player_ref: CharacterBody2D
 func _init(player: CharacterBody2D):
 	
 	player_ref = player
-	load_enemies_from_file("res://src/Characters/Enemys/enemies_data.json")
+	load_enemies_from_file("res://src/Enemys/enemies_data.json")
 	global_enemy_scene = load("res://src/Enemys/BaseEnemy.tscn")
 	if not global_enemy_scene:
 		print("Error: Failed to load global enemy scene")

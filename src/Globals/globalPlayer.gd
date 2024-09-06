@@ -15,11 +15,11 @@ func _ready():
 func update_stats():
 	%ProgressBar.max_value = stats_manager.get_stat("max_health")
 	%ProgressBar.value = stats_manager.current_health
+	print("Player health updated to: ", stats_manager.current_health)
 
 func _physics_process(delta):
 	move_character()
 	animate_character()
-	check_damage(delta)
 
 func move_character():
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -32,19 +32,10 @@ func animate_character():
 	else:
 		play_idle_animation()
 
-func check_damage(delta):
-	const DAMAGE_RATE = 50.0
-	var overlapping_areas = %HurtBox.get_overlapping_areas()
-	var enemy_count = 0
-	for area in overlapping_areas:
-		if area.get_parent() is BaseEnemy:
-			enemy_count += 1
-	if enemy_count > 0:
-		take_damage(DAMAGE_RATE * enemy_count * delta)
-
 func take_damage(amount):
 	var actual_damage = stats_manager.take_damage(amount)
 	%ProgressBar.value = stats_manager.current_health
+	print("Player took damage: ", actual_damage)
 	if not stats_manager.is_alive():
 		global_state.deaths += 1
 		health_depleted.emit()

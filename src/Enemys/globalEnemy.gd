@@ -11,6 +11,7 @@ signal enemy_died(score: int)
 	"speed": 300.0
 }
 @export var score: int = 10
+@export var damage_interval: float = 0.5  # Tiempo entre cada aplicación de daño
 
 var player: CharacterBody2D
 var stats: Dictionary
@@ -18,13 +19,12 @@ var current_health: float
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
-@onready var hitbox: Area2D = $Hitbox
 
 var is_ready = false
+var damage_timer: float = 0.0
 
 func _ready():
 	add_to_group("enemies")
-	
 	
 	is_ready = true
 	if player:
@@ -43,20 +43,25 @@ func _initialize():
 	current_health = stats["health"]
 	if sprite:
 		sprite.visible = true
-	
 
 func _physics_process(delta):
 	if player:
 		chase_player(delta)
-	
+		check_collision_with_player(delta)
 
 func chase_player(delta):
 	if player:
 		var direction = global_position.direction_to(player.global_position)
 		velocity = direction * stats["speed"]
 		move_and_slide()
-		
-	
+
+func check_collision_with_player(delta):
+	damage_timer += delta
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		if collision.get_collider() == player and damage_timer >= damage_interval:
+			attack_player()
+			damage_timer = 0.0
 
 func take_damage(amount: float) -> float:
 	if randf() * 100 <= stats["dodge_chance"]:
@@ -85,8 +90,9 @@ func play_death_animation():
 		animation_player.play("death")
 
 func attack_player():
-	if player:
+	if player and player.has_method("take_damage"):
 		player.take_damage(stats["damage"])
+		print("Enemy attacked player for ", stats["damage"], " damage")
 
 func set_stats(_stats: Dictionary):
 	stats = _stats.duplicate()
