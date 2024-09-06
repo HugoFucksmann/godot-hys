@@ -4,6 +4,7 @@ signal health_depleted
 
 @onready var global_state = get_node("/root/GlobalState")
 @onready var stats_manager = get_node("/root/StatsManager")
+@onready var weapon_node = $WeaponNode  # Nodo donde se mostrará el arma equipada
 
 var can_shoot: bool = true
 @export var bullet_scene: PackedScene
@@ -11,6 +12,7 @@ var can_shoot: bool = true
 func _ready():
 	update_stats()
 	stats_manager.connect("stats_updated", update_stats)
+	_on_equipped_items_changed()
 
 func update_stats():
 	%ProgressBar.max_value = stats_manager.get_stat("max_health")
@@ -59,6 +61,30 @@ func shoot():
 			can_shoot = true
 		else:
 			print("Error: Failed to instantiate bullet")
+
+# Método para actualizar el arma equipada
+func _on_equipped_items_changed():
+	if weapon_node:
+		# Limpiar cualquier arma equipada actualmente
+		if weapon_node.get_child_count() > 0:
+			weapon_node.get_child(0).queue_free()
+
+		var weapon_data = global_state.equipped_items.get("arma", null)
+		if weapon_data:
+			if typeof(weapon_data.weapon_scene) == TYPE_OBJECT and weapon_data.weapon_scene is PackedScene:
+				var weapon_instance = weapon_data.weapon_scene.instantiate()
+				weapon_node.add_child(weapon_instance)
+			elif typeof(weapon_data.weapon_scene) == TYPE_STRING:
+				var weapon_scene = load(weapon_data.weapon_scene)
+				if weapon_scene and weapon_scene is PackedScene:
+					var weapon_instance = weapon_scene.instantiate()
+					weapon_node.add_child(weapon_instance)
+			else:
+				print("Error: weapon_scene is not a valid PackedScene or resource path")
+		else:
+			print("No weapon equipped")
+	else:
+		print("Error: WeaponNode not found")
 
 # Estos métodos serán sobrescritos en las clases hijas
 func play_walk_animation():

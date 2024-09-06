@@ -1,5 +1,12 @@
 res://src/MainScreens/survivor_game.tscn
-res://src/Inventary/inventory_interface.tscn
 res://src/Globals/globalState.gd
 res://src/MainScreens/main_screen.tscn
+res://src/Inventary/inventory_interface.tscn
+res://src/Players/player.tscn
+res://src/Players/player.gd
+res://src/Globals/globalPlayer.gd
+res://src/Items/base_item.gd
+res://src/Globals/globalItem.gd
 res://src/Items/items_data.json
+res://src/Items/GlobalItemScene.tscn
+res://src/Items/itemManager.gd

@@ -63,10 +63,11 @@ func load_game():
 	
 	var json = JSON.new()
 	var parse_result = json.parse(json_string)
-	if not parse_result == OK:
-		print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
+	
+	if parse_result != OK:
+		print("Error parsing save data")
 		return
-
+	
 	var save_dict = json.get_data()
 	
 	score = save_dict["score"]
@@ -75,6 +76,10 @@ func load_game():
 	for slot in save_dict["equipped_items"].keys():
 		var item_data = save_dict["equipped_items"][slot]
 		if item_data:
-			equipped_items[slot] = ItemManager.create_item_from_data(item_data)
+			var loaded_item = ItemManager.create_item_from_data(item_data)
+			# Recargamos la escena del arma desde la ruta
+			if loaded_item.bullet_scene and typeof(loaded_item.bullet_scene) == TYPE_STRING:
+				loaded_item.bullet_scene = load(loaded_item.bullet_scene)
+			equipped_items[slot] = loaded_item
 	
 	StatsManager.update_total_stats()

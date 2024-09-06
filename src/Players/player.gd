@@ -1,7 +1,5 @@
 extends "res://src/Globals/globalPlayer.gd"
 
-
-
 func _ready():
 	super._ready()
 	# Configuraciones específicas de PlayerOne

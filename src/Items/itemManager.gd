@@ -1,8 +1,13 @@
 extends Node
 
 var item_scenes: Dictionary
+var global_weapon_scene: PackedScene
 
 func _ready():
+	# Carga la escena global para todos los ítems
+	global_weapon_scene = load("res://src/Items/GlobalItemScene.tscn")
+	
+	# Carga los ítems desde el archivo JSON
 	load_items_from_file("res://src/Items/items_data.json")
 
 func load_items_from_file(file_path: String):
@@ -16,11 +21,11 @@ func load_items_from_file(file_path: String):
 		
 		var items_data = parse_result
 		item_scenes = items_data
+		
 		for item_category in items_data.keys():
 			var items_array = items_data[item_category]
 			for item_data in items_array:
 				var item = create_item_from_data(item_data)
-				
 
 func create_item_from_data(item_data: Dictionary) -> BaseItem:
 	if typeof(item_data) == TYPE_DICTIONARY:
@@ -32,7 +37,7 @@ func create_item_from_data(item_data: Dictionary) -> BaseItem:
 		var item_type = item_data.get("item_type", BaseItem.ItemType.ARMA)
 		var bullet_scene_path = item_data.get("bullet_scene", "")
 		var bullet_scene: PackedScene = null
-		if bullet_scene_path:
+		if bullet_scene_path and bullet_scene_path != "":
 			bullet_scene = load(bullet_scene_path) as PackedScene
 		var stats = item_data.get("stats", {})
 

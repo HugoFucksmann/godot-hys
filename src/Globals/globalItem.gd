@@ -1,4 +1,3 @@
-# GlobalItem.gd
 extends Area2D
 class_name GlobalItem
 
@@ -6,6 +5,7 @@ enum ItemType {ARMA, ARMADURA, BOTAS, CASCO, GUANTES, ACCESORIO}
 
 @export var icon: Texture
 @export var item_type: ItemType
+@export var weapon_scene: PackedScene  # Nueva propiedad para la escena del arma
 @export var bullet_scene: PackedScene
 @export var stats: Dictionary = {
 	"damage": 0,
@@ -23,10 +23,11 @@ enum ItemType {ARMA, ARMADURA, BOTAS, CASCO, GUANTES, ACCESORIO}
 
 @onready var collision_shape = $CollisionShape2D
 
-func _init(name: String = "", p_icon: Texture = null, p_item_type: ItemType = ItemType.ARMA, p_bullet_scene: PackedScene = null):
+func _init(name: String = "", p_icon: Texture = null, p_item_type: ItemType = ItemType.ARMA, p_weapon_scene: PackedScene = null, p_bullet_scene: PackedScene = null):
 	self.name = name
 	icon = p_icon
 	item_type = p_item_type
+	weapon_scene = p_weapon_scene  # Agrega la escena del arma
 	bullet_scene = p_bullet_scene
 
 func _ready():

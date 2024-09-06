@@ -1,11 +1,11 @@
-res://src/Players
 res://src/Items
+res://src/Items/Weapons/gun
+res://src/Players
 res://src/Enemys
 res://src/Characters/Enemys
 /home/hugo/Descargas/godot
 res://src/DataManager
 res://src/Globals
-res://src/Items/Weapons/gun
 res://src/Items/Armors/redDragon
 res://src/Inventary
 res://src/Items/
