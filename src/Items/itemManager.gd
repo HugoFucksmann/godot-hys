@@ -20,8 +20,7 @@ func load_items_from_file(file_path: String):
 			var items_array = items_data[item_category]
 			for item_data in items_array:
 				var item = create_item_from_data(item_data)
-				if item:
-					print("Item creado: ", item.name)
+				
 
 func create_item_from_data(item_data: Dictionary) -> BaseItem:
 	if typeof(item_data) == TYPE_DICTIONARY:

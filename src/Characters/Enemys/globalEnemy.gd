@@ -18,35 +18,54 @@ var current_health: float
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var hitbox: Area2D = $Hitbox
 
+var is_ready = false
 
+func _ready():
+	add_to_group("enemies")
+	
+	
+	is_ready = true
+	if player:
+		_initialize()
 
 func initialize(player_ref: CharacterBody2D):
 	player = player_ref
+	if is_ready:
+		_initialize()
+	else:
+		await ready
+		_initialize()
+
+func _initialize():
 	stats = base_stats.duplicate()
 	current_health = stats["health"]
+	if sprite:
+		sprite.visible = true
+	
 
 func _physics_process(delta):
 	if player:
 		chase_player(delta)
+	
 
 func chase_player(delta):
-	var direction = global_position.direction_to(player.global_position)
-	velocity = direction * stats["speed"]
-	move_and_slide()
+	if player:
+		var direction = global_position.direction_to(player.global_position)
+		velocity = direction * stats["speed"]
+		move_and_slide()
+		
+	
 
 func take_damage(amount: float) -> float:
 	if randf() * 100 <= stats["dodge_chance"]:
-		return 0.0  # Daño esquivado
-	
+		return 0.0  # Damage dodged
 	var damage_reduction = stats["defense"] / 100.0
 	var actual_damage = amount * (1 - damage_reduction)
-	
 	current_health -= actual_damage
 	current_health = max(current_health, 0)
-	
 	play_hurt_animation()
-	
 	if current_health <= 0:
 		die()
 	
@@ -79,20 +98,13 @@ func set_animations(hurt_anim: String, death_anim: String):
 			animation_player.get_animation(hurt_anim).name = "hurt"
 		if animation_player.has_animation(death_anim):
 			animation_player.get_animation(death_anim).name = "death"
+
 func set_texture(texture_path: String):
-	print("Attempting to load texture from: ", texture_path)
-
-	var image_texture = ResourceLoader.load(texture_path) as ImageTexture
-
-	if image_texture:
-		sprite.texture = image_texture
-		print("Texture assigned to sprite successfully")
-	else:
-		print("Failed to load image from texture path: ", texture_path)
-
-	# Verifica que sprite esté inicializado
-	if sprite:
-		sprite.visible = true
-		print("Sprite visible: ", sprite.visible)
-	else:
-		print("Sprite node is null")
+	if not is_ready:
+		await ready
+	var image = Image.new()
+	var err = image.load(texture_path)
+	if err == OK:
+		var texture = ImageTexture.create_from_image(image)
+		sprite.texture = texture
+	sprite.visible = true

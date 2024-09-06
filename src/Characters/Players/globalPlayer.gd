@@ -6,7 +6,7 @@ signal health_depleted
 @onready var stats_manager = get_node("/root/StatsManager")
 
 var can_shoot: bool = true
-var bullet_scene = preload("res://src/Items/Weapons/gun/bullet.tscn")
+@export var bullet_scene: PackedScene
 
 func _ready():
 	update_stats()
@@ -34,9 +34,13 @@ func animate_character():
 
 func check_damage(delta):
 	const DAMAGE_RATE = 50.0
-	var overlapping_mobs = %HurtBox.get_overlapping_bodies()
-	if overlapping_mobs.size() > 0:
-		take_damage(DAMAGE_RATE * overlapping_mobs.size() * delta)
+	var overlapping_areas = %HurtBox.get_overlapping_areas()
+	var enemy_count = 0
+	for area in overlapping_areas:
+		if area.get_parent() is BaseEnemy:
+			enemy_count += 1
+	if enemy_count > 0:
+		take_damage(DAMAGE_RATE * enemy_count * delta)
 
 func take_damage(amount):
 	var actual_damage = stats_manager.take_damage(amount)
@@ -47,15 +51,23 @@ func take_damage(amount):
 
 func shoot():
 	if can_shoot:
-		var bullet = bullet_scene.instantiate()
-		bullet.global_position = global_position
-		bullet.rotation = global_position.direction_to(get_global_mouse_position()).angle()
-		bullet.damage = stats_manager.calculate_damage("distance")
-		get_parent().add_child(bullet)
-		
-		can_shoot = false
-		await get_tree().create_timer(1.0 / stats_manager.get_stat("attack_speed")).timeout
-		can_shoot = true
+		var bullet = bullet_scene.instantiate() as GlobalBullet
+		if bullet:
+			bullet.global_position = global_position
+			bullet.rotation = global_position.direction_to(get_global_mouse_position()).angle()
+			bullet.damage = stats_manager.calculate_damage("distance")
+			
+			# Configura la bala para detectar colisiones con enemigos
+			bullet.collision_mask = 0b10  # Asume que la capa 2 es para enemigos
+			
+			get_parent().add_child(bullet)
+			print("Bullet created at position: ", bullet.global_position)
+			
+			can_shoot = false
+			await get_tree().create_timer(1.0 / stats_manager.get_stat("attack_speed")).timeout
+			can_shoot = true
+		else:
+			print("Error: Failed to instantiate bullet")
 
 # Estos métodos serán sobrescritos en las clases hijas
 func play_walk_animation():

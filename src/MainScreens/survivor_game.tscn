@@ -53,7 +53,5 @@ autostart = true
 unique_name_in_owner = true
 visible = false
 
-[node name="Node" type="Node" parent="."]
-
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

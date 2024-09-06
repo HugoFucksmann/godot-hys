@@ -8,6 +8,7 @@ var enemy_spawn_positions = []
 
 func _ready():
 	print("Game scene ready")
+	await get_tree().create_timer(0.1).timeout  # Short delay to ensure player is ready
 	enemy_manager = EnemyManager.new(player)
 	add_child(enemy_manager)
 	setup_enemy_spawn_positions()
@@ -36,22 +37,22 @@ func setup_enemy_spawn_positions():
 		enemy_spawn_positions.append(Vector2(viewport_size.x + spawn_margin, y))
 
 func _on_timer_timeout() -> void:
-	print("Timer timeout, spawning enemy")
 	spawn_enemy()
 
 func spawn_enemy():
 	var enemy_types = ["basic_enemy", "fast_enemy"]
 	var random_enemy_type = enemy_types[randi() % enemy_types.size()]
 	var random_position = enemy_spawn_positions[randi() % enemy_spawn_positions.size()]
-	
-	print("Attempting to spawn enemy type: ", random_enemy_type)
 	var enemy = enemy_manager.create_enemy(random_enemy_type)
 	if enemy:
-		enemy.global_position = random_position
 		add_child(enemy)
-		print("Enemy added to scene")
-		print("Enemy position: ", enemy.global_position)
-		print("Enemy visible: ", enemy.visible)
+		enemy.global_position = random_position
+		# Ensure the enemy is properly initialized
+		enemy.set_physics_process(true)
+		enemy.set_process(true)
+		enemy.visible = true
+		# Force update of the enemy
+		enemy.call_deferred("_physics_process", 0.0)
 	else:
 		print("Failed to create enemy")
 
