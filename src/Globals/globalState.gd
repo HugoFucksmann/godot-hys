@@ -30,6 +30,7 @@ const SAVE_PATH = "user://savegame.save"
 
 func _ready():
 	load_game()
+	
 
 func set_current_character(character):
 	current_character = character
@@ -77,9 +78,21 @@ func load_game():
 		var item_data = save_dict["equipped_items"][slot]
 		if item_data:
 			var loaded_item = ItemManager.create_item_from_data(item_data)
-			# Recargamos la escena del arma desde la ruta
-			if loaded_item.bullet_scene and typeof(loaded_item.bullet_scene) == TYPE_STRING:
-				loaded_item.bullet_scene = load(loaded_item.bullet_scene)
-			equipped_items[slot] = loaded_item
+			if loaded_item:
+				# Para armas, cargamos la escena de la bala si existe
+				if slot == "arma":
+					var bullet_scene_path = loaded_item.get_stat("bullet_scene")
+					if bullet_scene_path and typeof(bullet_scene_path) == TYPE_STRING:
+						loaded_item.stats["bullet_scene"] = load(bullet_scene_path)
+				equipped_items[slot] = loaded_item
 	
 	StatsManager.update_total_stats()
+
+func debug_print_equipped_items():
+	print("Currently equipped items:")
+	for slot in equipped_items.keys():
+		var item = equipped_items[slot]
+		if item:
+			print(slot + ": " + item.name)
+		else:
+			print(slot + ": None")

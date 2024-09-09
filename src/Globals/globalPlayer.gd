@@ -2,22 +2,26 @@ extends CharacterBody2D
 
 signal health_depleted
 
-@onready var global_state = get_node("/root/GlobalState")
-@onready var stats_manager = get_node("/root/StatsManager")
-@onready var weapon_node = $WeaponNode  # Nodo donde se mostrará el arma equipada
+
+
+@onready var weapon_node = $WeaponNode
+@onready var armor_node = $ArmorNode
+@onready var helmet_node = $HelmetNode
+@onready var boots_node = $BootsNode
+@onready var gloves_node = $GlovesNode
+@onready var accessory_node = $AccessoryNode
 
 var can_shoot: bool = true
-@export var bullet_scene: PackedScene
 
 func _ready():
 	update_stats()
-	stats_manager.connect("stats_updated", update_stats)
+	StatsManager.connect("stats_updated", update_stats)
+	GlobalState.debug_print_equipped_items()
 	_on_equipped_items_changed()
 
 func update_stats():
-	%ProgressBar.max_value = stats_manager.get_stat("max_health")
-	%ProgressBar.value = stats_manager.current_health
-	print("Player health updated to: ", stats_manager.current_health)
+	%ProgressBar.max_value = StatsManager.get_stat("max_health")
+	%ProgressBar.value = StatsManager.current_health
 
 func _physics_process(delta):
 	move_character()
@@ -25,7 +29,7 @@ func _physics_process(delta):
 
 func move_character():
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = direction * stats_manager.get_stat("speed")
+	velocity = direction * StatsManager.get_stat("speed")
 	move_and_slide()
 
 func animate_character():
@@ -35,58 +39,86 @@ func animate_character():
 		play_idle_animation()
 
 func take_damage(amount):
-	var actual_damage = stats_manager.take_damage(amount)
-	%ProgressBar.value = stats_manager.current_health
-	print("Player took damage: ", actual_damage)
-	if not stats_manager.is_alive():
-		global_state.deaths += 1
+	var actual_damage = StatsManager.take_damage(amount)
+	%ProgressBar.value = StatsManager.current_health
+	if not StatsManager.is_alive():
+		GlobalState.deaths += 1
 		health_depleted.emit()
 
 func shoot():
-	if can_shoot:
-		var bullet = bullet_scene.instantiate() as GlobalBullet
-		if bullet:
-			bullet.global_position = global_position
-			bullet.rotation = global_position.direction_to(get_global_mouse_position()).angle()
-			bullet.damage = stats_manager.calculate_damage("distance")
-			
-			# Configura la bala para detectar colisiones con enemigos
-			bullet.collision_mask = 0b10  # Asume que la capa 2 es para enemigos
-			
-			get_parent().add_child(bullet)
-			print("Bullet created at position: ", bullet.global_position)
-			
+	if can_shoot and weapon_node.get_child_count() > 0:
+		var weapon = weapon_node.get_child(0) as WeaponItem
+		if weapon:
+			weapon.shoot(global_position, global_position.direction_to(get_global_mouse_position()))
 			can_shoot = false
-			await get_tree().create_timer(1.0 / stats_manager.get_stat("attack_speed")).timeout
+			await get_tree().create_timer(1.0 / StatsManager.get_stat("attack_speed")).timeout
 			can_shoot = true
-		else:
-			print("Error: Failed to instantiate bullet")
 
-# Método para actualizar el arma equipada
 func _on_equipped_items_changed():
-	if weapon_node:
-		# Limpiar cualquier arma equipada actualmente
-		if weapon_node.get_child_count() > 0:
-			weapon_node.get_child(0).queue_free()
+	print("Updating equipped items")
+	equip_item("arma", weapon_node, "res://src/Items/item_arma.tscn")
+	equip_item("armadura", armor_node, "res://src/Items/item_armadura.tscn")
+	equip_item("casco", helmet_node, "res://src/Items/item_casco.tscn")
+	equip_item("botas", boots_node, "res://src/Items/item_botas.tscn")
+	equip_item("guantes", gloves_node, "res://src/Items/item_guantes.tscn")
+	equip_item("accesorio", accessory_node, "res://src/Items/item_accesorio.tscn")
 
-		var weapon_data = global_state.equipped_items.get("arma", null)
-		if weapon_data:
-			if typeof(weapon_data.weapon_scene) == TYPE_OBJECT and weapon_data.weapon_scene is PackedScene:
-				var weapon_instance = weapon_data.weapon_scene.instantiate()
-				weapon_node.add_child(weapon_instance)
-			elif typeof(weapon_data.weapon_scene) == TYPE_STRING:
-				var weapon_scene = load(weapon_data.weapon_scene)
-				if weapon_scene and weapon_scene is PackedScene:
-					var weapon_instance = weapon_scene.instantiate()
-					weapon_node.add_child(weapon_instance)
+func equip_item(slot: String, node: Node, base_scene_path: String):
+	print("Equipping item for slot: ", slot)
+	
+	# Remove any existing children
+	for child in node.get_children():
+		child.queue_free()
+
+	var item_data = GlobalState.equipped_items.get(slot)
+	if item_data:
+		print("Item data found: ", item_data.to_dict())  # Debug print
+		
+		# Check if the item type matches the slot
+		if not is_item_type_valid_for_slot(item_data.item_type, slot):
+			print("Warning: Item type does not match slot. Item: ", item_data.name, ", Slot: ", slot)
+			return
+		
+		var base_scene = load(base_scene_path)
+		if base_scene:
+			print("Base scene loaded: ", base_scene_path)
+			var item_instance = base_scene.instantiate()
+			print("Item instance created: ", item_instance)
+			if item_instance.has_method("initialize"):
+				item_instance.initialize(item_data)
+				print("Item initialized")
+			elif item_instance.has_method("set_item_data"):
+				item_instance.set_item_data(item_data)
+				print("Item data set")
 			else:
-				print("Error: weapon_scene is not a valid PackedScene or resource path")
+				push_error("Error: Item instance does not have initialize or set_item_data method: " + base_scene_path)
+				return
+			node.add_child(item_instance)
+			print("Item added to scene: ", item_instance.name)
+			
+			# Make sure the item is visible
+			if item_instance is CanvasItem:
+				item_instance.visible = true
+				print("Item visibility set to true")
+			
+			# Position the item (adjust as needed)
+			item_instance.position = Vector2.ZERO
+			print("Item position set to ", item_instance.position)
 		else:
-			print("No weapon equipped")
+			push_error("Error: Could not load scene: " + base_scene_path)
 	else:
-		print("Error: WeaponNode not found")
+		print("No item data for slot: ", slot)
 
-# Estos métodos serán sobrescritos en las clases hijas
+func is_item_type_valid_for_slot(item_type, slot: String) -> bool:
+	match slot:
+		"arma": return item_type == BaseItem.ItemType.ARMA
+		"armadura": return item_type == BaseItem.ItemType.ARMADURA
+		"casco": return item_type == BaseItem.ItemType.CASCO
+		"botas": return item_type == BaseItem.ItemType.BOTAS
+		"guantes": return item_type == BaseItem.ItemType.GUANTES
+		"accesorio": return item_type == BaseItem.ItemType.ACCESORIO
+	return false
+
 func play_walk_animation():
 	pass
 

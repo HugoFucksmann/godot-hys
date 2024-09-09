@@ -1,7 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://bi4e6dvkvw3kg"]
+[gd_scene load_steps=18 format=3 uid="uid://bi4e6dvkvw3kg"]
 
 [ext_resource type="Script" path="res://src/Players/player.gd" id="1_27rbv"]
 [ext_resource type="PackedScene" uid="uid://pbmyh1qru7p" path="res://src/Characters/Players/Player1/asset/happy_boo.tscn" id="1_xubg0"]
+[ext_resource type="PackedScene" uid="uid://bgp4ai77yd0o8" path="res://src/Items/item_accesorio.tscn" id="3_5shsp"]
+[ext_resource type="Script" path="res://src/Items/item_accesorio.gd" id="4_5oobh"]
+[ext_resource type="PackedScene" uid="uid://y8gl2bqq15c1" path="res://src/Items/item_arma.tscn" id="4_lwaej"]
+[ext_resource type="PackedScene" uid="uid://uwhv32nsnidc" path="res://src/Items/item_armadura.tscn" id="5_ogktf"]
+[ext_resource type="PackedScene" uid="uid://bvgqnjhb7m872" path="res://src/Items/item_botas.tscn" id="6_mmug7"]
+[ext_resource type="Script" path="res://src/Items/item_armadura.gd" id="7_lko54"]
+[ext_resource type="PackedScene" uid="uid://coimklch0fvfk" path="res://src/Items/item_casco.tscn" id="7_qrc8a"]
+[ext_resource type="PackedScene" uid="uid://dss0ypylkuyjd" path="res://src/Items/item_guantes.tscn" id="8_5fg0u"]
+[ext_resource type="Script" path="res://src/Items/item_botas.gd" id="9_w2ipt"]
+[ext_resource type="Script" path="res://src/Items/item_casco.gd" id="11_to78l"]
+[ext_resource type="Script" path="res://src/Items/item_guantes.gd" id="13_jio4i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n5i0m"]
 radius = 33.1361
@@ -54,4 +65,19 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_f6a6h")
 value = 100.0
 show_percentage = false
 
-[node name="WeaponNode" type="Node2D" parent="."]
+[node name="AccessoryNode" parent="." instance=ExtResource("3_5shsp")]
+script = ExtResource("4_5oobh")
+
+[node name="WeaponNode" parent="." instance=ExtResource("4_lwaej")]
+
+[node name="ArmorNode" parent="." instance=ExtResource("5_ogktf")]
+script = ExtResource("7_lko54")
+
+[node name="BootsNode" parent="." instance=ExtResource("6_mmug7")]
+script = ExtResource("9_w2ipt")
+
+[node name="HelmetNode" parent="." instance=ExtResource("7_qrc8a")]
+script = ExtResource("11_to78l")
+
+[node name="GlovesNode" parent="." instance=ExtResource("8_5fg0u")]
+script = ExtResource("13_jio4i")

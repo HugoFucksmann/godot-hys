@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://bci26n3kywx5i"]
+
+[ext_resource type="PackedScene" uid="uid://cu0m2t0cq28c6" path="res://src/Characters/Players/Player1/player.tscn" id="1_3vmhj"]
+[ext_resource type="Script" path="res://src/MainScreens/survivor_game.gd" id="1_iddai"]
+[ext_resource type="PackedScene" uid="uid://bwey8fjrcr8qy" path="res://src/maps/trees/pin_tree.tscn" id="2_ter85"]
+[ext_resource type="PackedScene" uid="uid://bqxqinraxg203" path="res://src/MainScreens/game_over.tscn" id="4_fmg0v"]
+
+[sub_resource type="Curve2D" id="Curve2D_oj1yw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -448.483, -381.306, 0, 0, 0, 0, -46.7034, -379.76, 0, 0, 0, 0, 429.899, -381.306, 0, 0, 0, 0, 1554.15, -373.575, 0, 0, 0, 0, 1569.86, 218.108, 0, 0, 0, 0, 1565.37, 841.23)
+}
+point_count = 6
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+position = Vector2(-1, 0)
+script = ExtResource("1_iddai")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1071.0
+offset_bottom = 1927.0
+
+[node name="Player" parent="." instance=ExtResource("1_3vmhj")]
+position = Vector2(469, 360)
+
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-456.701, 181.821)
+scale = Vector2(0.890333, 1.94023)
+curve = SubResource("Curve2D_oj1yw")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-448.483, -381.306)
+rotation = 0.00384784
+
+[node name="PinTree" parent="." instance=ExtResource("2_ter85")]
+position = Vector2(726, 237)
+
+[node name="PinTree2" parent="." instance=ExtResource("2_ter85")]
+position = Vector2(176, 948)
+
+[node name="PinTree3" parent="." instance=ExtResource("2_ter85")]
+position = Vector2(727, 1059)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.314
+autostart = true
+
+[node name="GameOver" parent="." instance=ExtResource("4_fmg0v")]
+unique_name_in_owner = true
+visible = false
+
+[connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -4,12 +4,11 @@
 	  "name": "Gun",
 	  "icon": "res://src/Items/Weapons/gun/asset/pistol.png",
 	  "item_type": 0,
-	  "bullet_scene": "res://src/Items/Bullets/bullet.tscn",
-	  "weapon_scene": "res://src/Items/GlobalItemScene.tscn",
 	  "stats": {
 		"damage": 1,
 		"attack_speed": 200.0,
-		"distance_damage": 100
+		"distance_damage": 100,
+		"bullet_scene": "res://src/Items/Bullets/bullet.tscn"
 	  }
 	}
   ],
@@ -18,7 +17,6 @@
 	  "name": "Basic Armor",
 	  "icon": "res://src/Items/Armors/redDragon/assets/redDragonArmor.png",
 	  "item_type": 1,
-	  "bullet_scene": null,
 	  "stats": {
 		"defense": 5,
 		"health": 100
@@ -30,7 +28,6 @@
 	  "name": "Leather Gloves",
 	  "icon": "res://src/Items/Gloves/asset/gloves.png",
 	  "item_type": 4,
-	  "bullet_scene": null,
 	  "stats": {
 		"attack_speed": 10.0,
 		"melee_damage": 5.0
@@ -42,7 +39,6 @@
 	  "name": "Steel Boots",
 	  "icon": "res://src/Items/Boots/asset/boots.png",
 	  "item_type": 2,
-	  "bullet_scene": null,
 	  "stats": {
 		"defense": 2,
 		"pickup_radius": 20
@@ -54,7 +50,6 @@
 	  "name": "Iron Helmet",
 	  "icon": "res://src/Items/Helmet/asset/helmet.png",
 	  "item_type": 3,
-	  "bullet_scene": null,
 	  "stats": {
 		"defense": 3,
 		"crit_chance": 2.0
@@ -66,7 +61,6 @@
 	  "name": "Magic Ring",
 	  "icon": "res://src/Items/Accessories/asset/ring.png",
 	  "item_type": 5,
-	  "bullet_scene": null,
 	  "stats": {
 		"magic_damage": 5.0,
 		"crit_damage": 1.5
