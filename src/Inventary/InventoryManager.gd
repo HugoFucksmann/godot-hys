@@ -25,7 +25,7 @@ func _load_inventory():
 
 func _load_default_items():
 	var gun = ItemManager.create_item_by_name("Gun")
-	var gloves = ItemManager.create_item_by_name("Leather Gloves")
+	var gloves = ItemManager.create_item_by_name("Shotgun")
 	var armor = ItemManager.create_item_by_name("Basic Armor")
 	add_item_to_inventory(gun)
 	add_item_to_inventory(gloves)

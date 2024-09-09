@@ -10,6 +10,17 @@
 		"distance_damage": 100,
 		"bullet_scene": "res://src/Items/Bullets/bullet.tscn"
 	  }
+	},
+	  {
+		"name": "Shotgun",
+		"icon": "res://src/Items/Weapons/shotgun/asset/shotgun.png",
+		"item_type": 0,
+		"stats": {
+			"damage": 2,
+			"attack_speed": 100.0,
+			"distance_damage": 80,
+			"bullet_scene": "res://src/Items/Bullets/bullet.tscn"
+		}
 	}
   ],
   "armadura": [
