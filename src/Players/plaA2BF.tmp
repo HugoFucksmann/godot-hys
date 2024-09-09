@@ -1,0 +1,83 @@
+[gd_scene load_steps=18 format=3 uid="uid://bi4e6dvkvw3kg"]
+
+[ext_resource type="Script" path="res://src/Players/player.gd" id="1_27rbv"]
+[ext_resource type="PackedScene" uid="uid://pbmyh1qru7p" path="res://src/Characters/Players/Player1/asset/happy_boo.tscn" id="1_xubg0"]
+[ext_resource type="PackedScene" uid="uid://bgp4ai77yd0o8" path="res://src/Items/item_accesorio.tscn" id="3_5shsp"]
+[ext_resource type="Script" path="res://src/Items/item_accesorio.gd" id="4_5oobh"]
+[ext_resource type="PackedScene" uid="uid://y8gl2bqq15c1" path="res://src/Items/item_arma.tscn" id="4_lwaej"]
+[ext_resource type="PackedScene" uid="uid://uwhv32nsnidc" path="res://src/Items/item_armadura.tscn" id="5_ogktf"]
+[ext_resource type="PackedScene" uid="uid://bvgqnjhb7m872" path="res://src/Items/item_botas.tscn" id="6_mmug7"]
+[ext_resource type="Script" path="res://src/Items/item_armadura.gd" id="7_lko54"]
+[ext_resource type="PackedScene" uid="uid://coimklch0fvfk" path="res://src/Items/item_casco.tscn" id="7_qrc8a"]
+[ext_resource type="PackedScene" uid="uid://dss0ypylkuyjd" path="res://src/Items/item_guantes.tscn" id="8_5fg0u"]
+[ext_resource type="Script" path="res://src/Items/item_botas.gd" id="9_w2ipt"]
+[ext_resource type="Script" path="res://src/Items/item_casco.gd" id="11_to78l"]
+[ext_resource type="Script" path="res://src/Items/item_guantes.gd" id="13_jio4i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n5i0m"]
+radius = 33.1361
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eri20"]
+radius = 41.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hws57"]
+bg_color = Color(0.205117, 0.205117, 0.205117, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f6a6h"]
+bg_color = Color(0.205206, 0.637538, 3.85046e-07, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_27rbv")
+
+[node name="HappyBoo" parent="." instance=ExtResource("1_xubg0")]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_n5i0m")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="HurtBox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_eri20")
+debug_color = Color(0.844517, 0.192344, 0.316397, 0.42)
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -46.0
+offset_top = -128.0
+offset_right = 47.0
+offset_bottom = -111.0
+theme_override_styles/background = SubResource("StyleBoxFlat_hws57")
+theme_override_styles/fill = SubResource("StyleBoxFlat_f6a6h")
+value = 100.0
+show_percentage = false
+
+[node name="AccessoryNode" parent="." instance=ExtResource("3_5shsp")]
+script = ExtResource("4_5oobh")
+
+[node name="WeaponNode" parent="." instance=ExtResource("4_lwaej")]
+
+[node name="ArmorNode" parent="." instance=ExtResource("5_ogktf")]
+script = ExtResource("7_lko54")
+
+[node name="BootsNode" parent="." instance=ExtResource("6_mmug7")]
+script = ExtResource("9_w2ipt")
+
+[node name="HelmetNode" parent="." instance=ExtResource("7_qrc8a")]
+script = ExtResource("11_to78l")
+
+[node name="GlovesNode" parent="." instance=ExtResource("8_5fg0u")]
+script = ExtResource("13_jio4i")

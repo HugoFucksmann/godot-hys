@@ -9,11 +9,12 @@ func initialize(data: BaseItem):
 	apply_stats()
 
 func apply_item_properties():
-	# Override this method in child classes to apply specific item properties
-	pass
+	if item_data and item_data.icon:
+		var sprite = Sprite2D.new()
+		sprite.texture = item_data.icon
+		add_child(sprite)
 
 func apply_stats():
-	# Override this method in child classes to apply specific stats
 	pass
 
 func get_stats() -> Dictionary:

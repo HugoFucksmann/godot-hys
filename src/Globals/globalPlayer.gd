@@ -59,7 +59,7 @@ func shoot():
 			can_shoot = true
 
 func _on_equipped_items_changed():
-	print("Updating equipped items")
+
 	equip_item("arma", weapon_node, "res://src/Items/item_arma.tscn")
 	equip_item("armadura", armor_node, "res://src/Items/item_armadura.tscn")
 	equip_item("casco", helmet_node, "res://src/Items/item_casco.tscn")
@@ -68,54 +68,40 @@ func _on_equipped_items_changed():
 	equip_item("accesorio", accessory_node, "res://src/Items/item_accesorio.tscn")
 
 func equip_item(slot: String, node: Node, base_scene_path: String):
-	print("Equipping item for slot: ", slot)
-	
-	# Remove any existing children
-	for child in node.get_children():
-		child.queue_free()
+	if not is_instance_valid(node):
+		push_warning("Invalid node for slot: " + slot)
+		return
+
+	node.get_children().map(func(child): child.queue_free())
 
 	var item_data = GlobalState.equipped_items.get(slot)
-	if item_data:
-		print("Item data found: ", item_data.to_dict())
-		
-		# Check if the item type matches the slot
-		if not is_item_type_valid_for_slot(item_data.item_type, slot):
-			print("Warning: Item type does not match slot. Item: ", item_data.name, ", Slot: ", slot)
-			return
-		
-		var base_scene = load(base_scene_path)
-		if base_scene:
-			print("Base scene loaded: ", base_scene_path)
-			var item_instance = base_scene.instantiate()
-			print("Item instance created: ", item_instance)
-			if item_instance.has_method("initialize"):
-				item_instance.initialize(item_data)
-				print("Item initialized")
-			elif item_instance.has_method("set_item_data"):
-				item_instance.set_item_data(item_data)
-				print("Item data set")
-			else:
-				push_error("Error: Item instance does not have initialize or set_item_data method: " + base_scene_path)
-				return
-			node.add_child(item_instance)
-			print("Item added to scene: ", item_instance.name)
-			
-			# Connect weapon signal if it's a weapon
-			if slot == "arma" and item_instance is WeaponItem:
-				item_instance.connect("weapon_fired", Callable(self, "_on_weapon_fired"))
-			
-			# Make sure the item is visible
-			if item_instance is CanvasItem:
-				item_instance.visible = true
-				print("Item visibility set to true")
-			
-			# Position the item (adjust as needed)
-			item_instance.position = Vector2.ZERO
-			print("Item position set to ", item_instance.position)
-		else:
-			push_error("Error: Could not load scene: " + base_scene_path)
+	if not item_data or not is_item_type_valid_for_slot(item_data.item_type, slot):
+		push_warning("Invalid item data or type for slot: " + slot)
+		return
+
+	var base_scene = load(base_scene_path)
+	if not base_scene:
+		push_error("Failed to load scene: " + base_scene_path)
+		return
+
+	var item_instance = base_scene.instantiate()
+	if item_instance.has_method("initialize"):
+		item_instance.initialize(item_data)
+	elif item_instance.has_method("set_item_data"):
+		item_instance.set_item_data(item_data)
 	else:
-		print("No item data for slot: ", slot)
+		push_error("Item instance lacks required methods: " + base_scene_path)
+		return
+
+	node.add_child(item_instance)
+
+	if slot == "arma" and item_instance is WeaponItem:
+		item_instance.weapon_fired.connect(_on_weapon_fired)
+
+	if item_instance is CanvasItem:
+		item_instance.visible = true
+		item_instance.position = Vector2.ZERO
+		
 		
 func _on_weapon_fired(bullet_scene: PackedScene, position: Vector2, direction: Vector2):
 	var bullet = bullet_scene.instantiate()
