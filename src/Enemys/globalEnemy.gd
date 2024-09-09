@@ -25,7 +25,9 @@ var damage_timer: float = 0.0
 
 func _ready():
 	add_to_group("enemies")
-	
+	# Set collision layer for enemy
+	set_collision_layer_value(2, false)  # Disable collision on layer 1 (player)
+	set_collision_layer_value(2, true)   # Enable collision on layer 2 (enemies)
 	is_ready = true
 	if player:
 		_initialize()

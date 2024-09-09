@@ -1,8 +1,17 @@
 extends BaseEquippableItem
 class_name WeaponItem
 
+signal weapon_fired(bullet_scene, position, direction)
+
 var bullet_scene: PackedScene
 var sprite: Sprite2D
+var shoot_timer: Timer
+
+func _ready():
+	shoot_timer = Timer.new()
+	shoot_timer.one_shot = true
+	add_child(shoot_timer)
+	shoot_timer.connect("timeout", Callable(self, "_on_shoot_timer_timeout"))
 
 func ensure_sprite_exists():
 	if not is_instance_valid(sprite):
@@ -41,11 +50,13 @@ func apply_stats():
 	pass
 
 func shoot(from_position: Vector2, direction: Vector2):
-	if bullet_scene:
-		var bullet = bullet_scene.instantiate()
-		bullet.global_position = from_position
-		bullet.rotation = direction.angle()
-		bullet.damage = item_data.get_stat("damage", 1)
-		get_tree().current_scene.add_child(bullet)
-	else:
-		push_warning("Attempted to shoot, but bullet_scene is not set")
+	if bullet_scene and shoot_timer.is_stopped():
+		emit_signal("weapon_fired", bullet_scene, from_position, direction)
+		start_shoot_cooldown()
+
+func start_shoot_cooldown():
+	var attack_speed = StatsManager.get_stat("attack_speed")
+	shoot_timer.start(1.0 / attack_speed)
+
+func _on_shoot_timer_timeout():
+	print("Weapon ready to shoot again")

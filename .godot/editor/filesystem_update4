@@ -21,3 +21,6 @@ res://src/Items/item_accesorio.gd
 res://src/Items/item_botas.gd
 res://src/Items/item_casco.gd
 res://src/Items/item_guantes.gd
+res://src/Enemys/BaseEnemy.tscn
+res://src/Enemys/enemy.tscn
+res://src/Enemys/globalEnemy.gd

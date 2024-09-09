@@ -18,6 +18,10 @@ func _ready():
 	StatsManager.connect("stats_updated", update_stats)
 	GlobalState.debug_print_equipped_items()
 	_on_equipped_items_changed()
+	
+	# Set collision layer for player
+	set_collision_layer_value(1, true)   # Enable collision on layer 1 (player)
+	set_collision_layer_value(2, false)  # Disable collision on layer 2 (enemies)
 
 func update_stats():
 	%ProgressBar.max_value = StatsManager.get_stat("max_health")
@@ -72,7 +76,7 @@ func equip_item(slot: String, node: Node, base_scene_path: String):
 
 	var item_data = GlobalState.equipped_items.get(slot)
 	if item_data:
-		print("Item data found: ", item_data.to_dict())  # Debug print
+		print("Item data found: ", item_data.to_dict())
 		
 		# Check if the item type matches the slot
 		if not is_item_type_valid_for_slot(item_data.item_type, slot):
@@ -96,6 +100,10 @@ func equip_item(slot: String, node: Node, base_scene_path: String):
 			node.add_child(item_instance)
 			print("Item added to scene: ", item_instance.name)
 			
+			# Connect weapon signal if it's a weapon
+			if slot == "arma" and item_instance is WeaponItem:
+				item_instance.connect("weapon_fired", Callable(self, "_on_weapon_fired"))
+			
 			# Make sure the item is visible
 			if item_instance is CanvasItem:
 				item_instance.visible = true
@@ -108,6 +116,13 @@ func equip_item(slot: String, node: Node, base_scene_path: String):
 			push_error("Error: Could not load scene: " + base_scene_path)
 	else:
 		print("No item data for slot: ", slot)
+		
+func _on_weapon_fired(bullet_scene: PackedScene, position: Vector2, direction: Vector2):
+	var bullet = bullet_scene.instantiate()
+	bullet.global_position = position
+	bullet.rotation = direction.angle()
+	bullet.damage = StatsManager.calculate_damage("distance")
+	get_tree().current_scene.add_child(bullet)
 
 func is_item_type_valid_for_slot(item_type, slot: String) -> bool:
 	match slot:
@@ -124,3 +139,29 @@ func play_walk_animation():
 
 func play_idle_animation():
 	pass
+
+func _process(delta):
+	# Check for nearby enemies and shoot if found
+	var nearest_enemy = find_nearest_enemy()
+	if nearest_enemy:
+		shoot_at_enemy(nearest_enemy)
+
+func find_nearest_enemy():
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	var nearest_enemy = null
+	var nearest_distance = INF
+	
+	for enemy in enemies:
+		var distance = global_position.distance_to(enemy.global_position)
+		if distance < nearest_distance:
+			nearest_distance = distance
+			nearest_enemy = enemy
+	
+	return nearest_enemy
+
+func shoot_at_enemy(enemy):
+	if weapon_node.get_child_count() > 0:
+		var weapon = weapon_node.get_child(0) as WeaponItem
+		if weapon:
+			var direction = global_position.direction_to(enemy.global_position)
+			weapon.shoot(global_position, direction)

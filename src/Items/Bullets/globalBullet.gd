@@ -10,6 +10,9 @@ var area_damage_radius: float = 0
 
 func _ready():
 	print("Bullet created with damage: ", damage)
+	# Set up collision mask to only detect enemies
+	set_collision_mask_value(1, false)  # Disable collision with players (assuming they're on layer 1)
+	set_collision_mask_value(2, true)   # Enable collision with enemies (assuming they're on layer 2)
 
 func _physics_process(delta):
 	var direction = Vector2.RIGHT.rotated(rotation)
@@ -21,12 +24,16 @@ func _physics_process(delta):
 
 func _on_body_entered(body):
 	print("Bullet collided with: ", body.name)
-	if is_area_damage:
-		explode()
+	if body.is_in_group("enemies"):
+		if is_area_damage:
+			explode()
+		else:
+			if body.has_method("take_damage"):
+				print("Applying damage to enemy: ", body.name)
+				body.take_damage(damage)
+			queue_free()
 	else:
-		if body.has_method("take_damage"):
-			print("Applying damage to: ", body.name)
-			body.take_damage(damage)
+		print("Bullet collided with non-enemy object: ", body.name)
 		queue_free()
 
 func explode():
