@@ -8,6 +8,8 @@ res://src/Items/item_armadura.tscn
 res://src/Items/item_accesorio.tscn
 res://src/Enemys/BaseEnemy.tscn
 res://src/Enemys/enemy.tscn
+res://src/Globals/globalPlayer.gd
+res://src/Globals/statsManager.gd
 res://src/Inventary/InventoryManager.gd
-res://src/Items/item_arma.gd
-res://src/Items/items_data.json
+res://src/Inventary/InventorySlot.gd
+res://src/Inventary/CharacterEquipment.gd

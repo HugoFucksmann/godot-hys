@@ -16,7 +16,6 @@ var deaths: int = 0:
 		save_game()
 
 var current_character = null
-
 var equipped_items: Dictionary = {
 	"arma": null,
 	"guantes": null,
@@ -30,7 +29,6 @@ const SAVE_PATH = "user://savegame.save"
 
 func _ready():
 	load_game()
-	
 
 func set_current_character(character):
 	current_character = character
@@ -47,7 +45,7 @@ func save_game():
 		"equipped_items": {}
 	}
 	
-	for slot in equipped_items.keys():
+	for slot in equipped_items:
 		if equipped_items[slot]:
 			save_dict["equipped_items"][slot] = equipped_items[slot].to_dict()
 	
@@ -74,7 +72,7 @@ func load_game():
 	score = save_dict["score"]
 	deaths = save_dict["deaths"]
 	
-	for slot in save_dict["equipped_items"].keys():
+	for slot in save_dict["equipped_items"]:
 		var item_data = save_dict["equipped_items"][slot]
 		if item_data:
 			var loaded_item = ItemManager.create_item_from_data(item_data)
@@ -82,17 +80,8 @@ func load_game():
 				# Para armas, cargamos la escena de la bala si existe
 				if slot == "arma":
 					var bullet_scene_path = loaded_item.get_stat("bullet_scene")
-					if bullet_scene_path and typeof(bullet_scene_path) == TYPE_STRING:
+					if bullet_scene_path and bullet_scene_path is String:
 						loaded_item.stats["bullet_scene"] = load(bullet_scene_path)
 				equipped_items[slot] = loaded_item
 	
 	StatsManager.update_total_stats()
-
-func debug_print_equipped_items():
-	print("Currently equipped items:")
-	for slot in equipped_items.keys():
-		var item = equipped_items[slot]
-		if item:
-			print(slot + ": " + item.name)
-		else:
-			print(slot + ": None")
