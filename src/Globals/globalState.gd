@@ -7,13 +7,13 @@ var score: int = 0:
 	set(value):
 		score = value
 		emit_signal("score_updated", score)
-		save_game()
+		SaveManager.set_save_data("score", score)
 
 var deaths: int = 0:
 	set(value):
 		deaths = value
 		emit_signal("deaths_updated", deaths)
-		save_game()
+		SaveManager.set_save_data("deaths", deaths)
 
 var current_character = null
 var equipped_items: Dictionary = {
@@ -25,10 +25,9 @@ var equipped_items: Dictionary = {
 	"accesorio": null
 }
 
-const SAVE_PATH = "user://savegame.save"
-
 func _ready():
-	load_game()
+	SaveManager.connect("data_loaded", Callable(self, "_on_data_loaded"))
+	SaveManager.load_game()
 
 func set_current_character(character):
 	current_character = character
@@ -36,48 +35,22 @@ func set_current_character(character):
 
 func update_equipped_items():
 	StatsManager.update_total_stats()
-	save_game()
-
-func save_game():
-	var save_dict = {
-		"score": score,
-		"deaths": deaths,
-		"equipped_items": {}
-	}
-	
+	var equipped_items_data = {}
 	for slot in equipped_items:
 		if equipped_items[slot]:
-			save_dict["equipped_items"][slot] = equipped_items[slot].to_dict()
-	
-	var save_game = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
-	var json_string = JSON.stringify(save_dict)
-	save_game.store_line(json_string)
+			equipped_items_data[slot] = equipped_items[slot].to_dict()
+	SaveManager.set_save_data("equipped_items", equipped_items_data)
 
-func load_game():
-	if not FileAccess.file_exists(SAVE_PATH):
-		return
+func _on_data_loaded():
+	var save_data = SaveManager.get_save_data()
+	score = save_data["score"]
+	deaths = save_data["deaths"]
 	
-	var save_game = FileAccess.open(SAVE_PATH, FileAccess.READ)
-	var json_string = save_game.get_line()
-	
-	var json = JSON.new()
-	var parse_result = json.parse(json_string)
-	
-	if parse_result != OK:
-		print("Error parsing save data")
-		return
-	
-	var save_dict = json.get_data()
-	
-	score = save_dict["score"]
-	deaths = save_dict["deaths"]
-	
-	for slot in save_dict["equipped_items"]:
-		var item_data = save_dict["equipped_items"][slot]
+	for slot in save_data["equipped_items"]:
+		var item_data = save_data["equipped_items"][slot]
 		if item_data:
 			var loaded_item = ItemManager.create_item_from_data(item_data)
 			if loaded_item:
-				# Para armas, cargamos la escena de la bala si existe
 				if slot == "arma":
 					var bullet_scene_path = loaded_item.get_stat("bullet_scene")
 					if bullet_scene_path and bullet_scene_path is String:

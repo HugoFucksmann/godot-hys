@@ -13,3 +13,7 @@ res://src/Globals/statsManager.gd
 res://src/Inventary/InventoryManager.gd
 res://src/Inventary/InventorySlot.gd
 res://src/Inventary/CharacterEquipment.gd
+res://configs/gpgs_config.gd
+res://src/DataManager/GPGSManager.gd
+res://src/MainScreens/main_screen.gd
+res://configs/SaveManager.gd

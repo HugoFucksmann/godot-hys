@@ -86,7 +86,7 @@ package_name="com.arachnidassault.mygame"
 
 GlobalState="*res://src/Globals/globalState.gd"
 StatsManager="*res://src/Globals/statsManager.gd"
-DataManager="*res://src/DataManager/dataManager.gd"
+ItemManager="*res://src/Items/itemManager.gd"
 GodotPlayGameServices="*res://addons/GodotPlayGameServices/autoloads/godot_play_game_services.gd"
 SignInClient="*res://addons/GodotPlayGameServices/autoloads/sign_in_client.gd"
 PlayersClient="*res://addons/GodotPlayGameServices/autoloads/players_client.gd"
@@ -94,7 +94,8 @@ AchievementsClient="*res://addons/GodotPlayGameServices/autoloads/achievements_c
 LeaderboardsClient="*res://addons/GodotPlayGameServices/autoloads/leaderboards_client.gd"
 SnapshotsClient="*res://addons/GodotPlayGameServices/autoloads/snapshots_client.gd"
 EventsClient="*res://addons/GodotPlayGameServices/autoloads/events_client.gd"
-ItemManager="*res://src/Items/itemManager.gd"
+GPGSManager="*res://configs/GPGSManager.gd"
+SaveManager="*res://configs/SaveManager.gd"
 
 [display]
 
