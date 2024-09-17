@@ -15,9 +15,9 @@ var can_shoot: bool = true
 
 func _ready():
 	update_stats()
-	StatsManager.connect("stats_updated", update_stats)
+	StatsManager.connect("stats_updated", Callable(self, "update_stats"))
 	
-	_on_equipped_items_changed()
+	_on_equipped_items_changed()  # Asegurarnos de que los ítems equipados se configuren correctamente al inicio
 	set_collision_layer_value(1, true)
 	set_collision_layer_value(2, false)
 
@@ -40,7 +40,7 @@ func take_damage(amount):
 	%ProgressBar.value = StatsManager.current_health
 	if not StatsManager.is_alive():
 		GlobalState.deaths += 1
-		health_depleted.emit()
+		emit_signal("health_depleted")
 
 func shoot():
 	if can_shoot and equipment_nodes["arma"].get_child_count() > 0:
@@ -54,6 +54,12 @@ func shoot():
 func _on_equipped_items_changed():
 	for slot in equipment_nodes:
 		equip_item(slot, equipment_nodes[slot], "res://src/Items/item_" + slot + ".tscn")
+
+	# Añadir lógica para asegurar que el arma esté lista para disparar al inicio
+	if equipment_nodes["arma"].get_child_count() > 0:
+		var weapon = equipment_nodes["arma"].get_child(0) as WeaponItem
+		if weapon:
+			weapon.ready_to_shoot()
 
 func equip_item(slot: String, node: Node, base_scene_path: String):
 	if not is_instance_valid(node):
@@ -83,7 +89,7 @@ func equip_item(slot: String, node: Node, base_scene_path: String):
 	node.add_child(item_instance)
 
 	if slot == "arma" and item_instance is WeaponItem:
-		item_instance.weapon_fired.connect(_on_weapon_fired)
+		item_instance.weapon_fired.connect(Callable(self, "_on_weapon_fired"))
 
 	if item_instance is CanvasItem:
 		item_instance.visible = true

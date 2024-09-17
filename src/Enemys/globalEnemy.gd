@@ -110,9 +110,21 @@ func set_animations(hurt_anim: String, death_anim: String):
 func set_texture(texture_path: String):
 	if not is_ready:
 		await ready
+	print("Attempting to load texture from path: ", texture_path)
 	var image = Image.new()
 	var err = image.load(texture_path)
 	if err == OK:
+		print("Image loaded successfully")
 		var texture = ImageTexture.create_from_image(image)
 		sprite.texture = texture
-	sprite.visible = true
+		print("Texture set on sprite")
+	else:
+		print("Failed to load image. Error code: ", err)
+	
+	if sprite.texture:
+		print("Sprite has a texture")
+		sprite.visible = true
+	else:
+		print("Sprite does not have a texture")
+		
+	print("Sprite visibility: ", sprite.visible)

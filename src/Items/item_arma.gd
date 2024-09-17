@@ -10,7 +10,8 @@ func _ready():
 	shoot_timer = Timer.new()
 	shoot_timer.one_shot = true
 	add_child(shoot_timer)
-	shoot_timer.timeout.connect(_on_shoot_timer_timeout)
+	shoot_timer.timeout.connect(Callable(self, "_on_shoot_timer_timeout"))
+	ready_to_shoot()
 
 func apply_item_properties():
 	super.apply_item_properties()
@@ -25,7 +26,7 @@ func shoot(from_position: Vector2, direction: Vector2):
 		start_shoot_cooldown()
 
 func _shoot_single_bullet(from_position: Vector2, direction: Vector2):
-	weapon_fired.emit(bullet_scene, from_position, direction)
+	emit_signal("weapon_fired", bullet_scene, from_position, direction)
 
 func _shoot_shotgun(from_position: Vector2, direction: Vector2):
 	const BULLET_COUNT = 5
@@ -35,7 +36,7 @@ func _shoot_shotgun(from_position: Vector2, direction: Vector2):
 	for i in range(BULLET_COUNT):
 		var bullet_rotation = base_rotation + deg_to_rad(randf_range(-BULLET_SPREAD, BULLET_SPREAD))
 		var bullet_direction = Vector2.RIGHT.rotated(bullet_rotation)
-		weapon_fired.emit(bullet_scene, from_position, bullet_direction)
+		emit_signal("weapon_fired", bullet_scene, from_position, bullet_direction)
 
 func start_shoot_cooldown():
 	var attack_speed = StatsManager.get_stat("attack_speed")
@@ -43,3 +44,6 @@ func start_shoot_cooldown():
 
 func _on_shoot_timer_timeout():
 	pass
+
+func ready_to_shoot():
+	shoot_timer.stop()
